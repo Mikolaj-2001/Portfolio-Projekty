@@ -1,0 +1,48 @@
+# Visual Studio / C++ common
+.vs/
+ipch/
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+*.userosscache
+*.vcxproj.user
+
+# Build results
+Debug*/
+Release*/
+x64/Debug/
+x64/Release/
+build/
+bin/
+obj/
+
+# Compiled objects, libraries, executables
+*.obj
+*.o
+*.lib
+*.a
+*.dll
+*.exe
+*.so
+*.dylib
+*.pch
+*.pdb
+*.ilk
+*.idb
+*.ipdb
+
+# Logs, temp
+*.log
+*.tlog
+*.lastbuildstate
+*.tmp
+
+# IDE / OS files
+*.DS_Store
+Thumbs.db
+
+# Workspace / cache
+*.sdf
+*.opensdf
+*.cache

@@ -51,15 +51,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="x64\Debug\Rejestracja Bankowa.Build.CppClean.log" />
-    <Text Include="x64\Debug\Rejestracja Bankowa.vcxproj.FileListAbsolute.txt" />
-    <Text Include="x64\Debug\Rejestracja Bankowa.log" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Kod_do_Modelu.sql" />
-    <None Include="x64\Debug\Rejestracja Bankowa.vcxproj.AssemblyReference.cache" />
-    <None Include="x64\Debug\Rejestracja Bankowa.exe.recipe" />
-    <None Include="Rejestracja Bankowa.aps" />
     <None Include="Obrazy\*.png">
       <Filter>Pliki zasobów</Filter>
     </None>
@@ -78,7 +69,6 @@
     <None Include="Obrazy\*.gif">
       <Filter>Pliki zasobów</Filter>
     </None>
-    <None Include="x64\Debug\vc143.pdb" />
     <None Include="Obrazy\*.png">
       <Filter>Pliki zasobów</Filter>
     </None>
@@ -97,6 +87,25 @@
     <None Include="Obrazy\*.gif">
       <Filter>Pliki zasobów</Filter>
     </None>
+    <None Include="Obrazy\*.png">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Obrazy\*.gif">
@@ -105,12 +114,6 @@
     <None Include="Obrazy\*.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.obj" />
-    <Object Include="x64\Debug\Nawigacja.obj" />
-    <Object Include="x64\Debug\Rejestracja.obj" />
-    <Object Include="x64\Debug\Rejestracja1.obj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Logowanie.resx">
