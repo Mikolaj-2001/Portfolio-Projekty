@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Logowanie.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Rejestracja.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Rejestracja1.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Nawigacja.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Rejestracja.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Rejestracja1.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Nawigacja.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Logowanie.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Rejestracja Bankowa.rc">
+      <Filter>Pliki zasobów</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Debug\Rejestracja Bankowa.Build.CppClean.log" />
+    <Text Include="x64\Debug\Rejestracja Bankowa.vcxproj.FileListAbsolute.txt" />
+    <Text Include="x64\Debug\Rejestracja Bankowa.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Kod_do_Modelu.sql" />
+    <None Include="x64\Debug\Rejestracja Bankowa.vcxproj.AssemblyReference.cache" />
+    <None Include="x64\Debug\Rejestracja Bankowa.exe.recipe" />
+    <None Include="Rejestracja Bankowa.aps" />
+    <None Include="Obrazy\*.png">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="x64\Debug\vc143.pdb" />
+    <None Include="Obrazy\*.png">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Obrazy\*.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Obrazy\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.obj" />
+    <Object Include="x64\Debug\Nawigacja.obj" />
+    <Object Include="x64\Debug\Rejestracja.obj" />
+    <Object Include="x64\Debug\Rejestracja1.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Logowanie.resx">
+      <Filter>Pliki zasobów</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

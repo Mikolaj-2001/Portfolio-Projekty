@@ -1,0 +1,74 @@
+  RejestracjaBankowa.Logowanie.Logowanie.resources - Embedded, ContainedInManifestFile, 
+  RejestracjaBankowa.Rejestracja.Rejestracja.resources - Embedded, ContainedInManifestFile, 
+  RejestracjaBankowa.Rejestracja1.Rejestracja1.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly RejestracjaBankowa, Version=0.0.*, Culture=Język niezmienny (kraj niezmienny): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data.DataSetExtensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data.Services.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class RejestracjaBankowa.Rejestracja: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String konfiguracja : Public
+  Methods:
+    GeneratorIdTransakcji(): PrivateScope, Public, HideBySig
+    ŁadowanieBazy1(): PrivateScope, Public, HideBySig
+    ŁadowanieBazy1a(): PrivateScope, Public, HideBySig
+    ŁadowanieBazy2(): PrivateScope, Public, HideBySig
+    ŁadowanieBazy2a(): PrivateScope, Public, HideBySig
+    PrzeniesienieDanych(): PrivateScope, Public, HideBySig
+    CurrentClicked(): PrivateScope, Public, HideBySig
+    ProcessedClicked(): PrivateScope, Public, HideBySig
+    proClicked(): PrivateScope, Public, HideBySig
+    curClicked(): PrivateScope, Public, HideBySig
+    EncryptAny(Object, Char(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    confirmationOfData(): PrivateScope, Public, HideBySig
+    personDataGridView(): PrivateScope, Public, HideBySig
+    ŁadowanieBazyEdit(): PrivateScope, Public, HideBySig
+    creditConfirming(): PrivateScope, Public, HideBySig
+    loanConfirming(): PrivateScope, Public, HideBySig
+Class RejestracjaBankowa.Rejestracja+DownLoadingStructure`1[T]: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  Type parameter: T
+    Void .ctor(T): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    T dataInput2 : Public
+  Methods:
+    dataDownLoading(Object): PrivateScope, Public, HideBySig
+    dataTabling2(DataGridView): PrivateScope, Public, HideBySig
+    dataFoldering(String): PrivateScope, Public, HideBySig
+Class RejestracjaBankowa.Nawigacja: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    otwórzLogowanie(Form): PrivateScope, Public, Static, HideBySig
+    otwórzRejestracje(Form, Int32): PrivateScope, Public, Static, HideBySig
+Class RejestracjaBankowa.Rejestracja1.Rejestracja1: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String konfiguracja : Public
+  Methods:
+    CzyszczeniePól2(): PrivateScope, Public, HideBySig
+    GenerowanieIdKlienta(): PrivateScope, Public, HideBySig
+Class RejestracjaBankowa.Logowanie.Logowanie: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String konfiguracja : Public
+  Methods:
+    CzyszczeniePól(): PrivateScope, Public, HideBySig

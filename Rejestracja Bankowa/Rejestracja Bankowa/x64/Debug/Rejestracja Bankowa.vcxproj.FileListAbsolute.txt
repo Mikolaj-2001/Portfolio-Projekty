@@ -1,0 +1,4 @@
+C:\Users\kazac\OneDrive\Pulpit\Aplikacja Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\x64\Debug\Rejestracja Bankowa.vcxproj.AssemblyReference.cache
+C:\Users\kazac\OneDrive\Pulpit\Aplikacja Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\x64\Debug\RejestracjaBankowa.Logowanie.resources
+C:\Users\kazac\OneDrive\Pulpit\Aplikacja Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\x64\Debug\RejestracjaBankowa.Rejestracja.resources
+C:\Users\kazac\OneDrive\Pulpit\Aplikacja Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\x64\Debug\Rejestracja Bankowa.vcxproj.GenerateResource.cache

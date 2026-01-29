@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
+      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
+      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Rejestracja1.h",
+              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h",
+              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja1.h",
+              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h",
+              "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja1.h",
+              "ViewState": "AgIAAF0BAAAAAAAAAAAjwEoBAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-13T14:52:06.64Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Rejestracja1.h [Projekt]",
+              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h",
+              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja1.h",
+              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h [Projekt]",
+              "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja1.h [Projekt]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-13T14:51:58.154Z",
+              "EditorCaption": " [Projekt]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Rejestracja.h",
+              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h",
+              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja.h",
+              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h",
+              "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja.h",
+              "ViewState": "AgIAAJ4IAAAAAAAAAAAAAJgIAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-13T13:48:18.69Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Rejestracja.h [Projekt]",
+              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h",
+              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja.h",
+              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder ca\u0142o\u015Bciowy\\Aplikacja Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h [Projekt]",
+              "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja.h [Projekt]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-13T13:48:12.324Z",
+              "EditorCaption": " [Projekt]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
