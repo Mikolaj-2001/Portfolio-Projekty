@@ -1,0 +1,236 @@
+{{>headers}}
+
+<nav class="navbar bg-body-tertiary" id="navbar">
+    <div class="container-fluid justify-content-start" id="sub-navbar">
+        <form action="/user/lottery" method="post" style="display: inline;">
+            <button class="btn btn-outline-success me-2" type="submit" style="font-style: italic;">Powrót</button>
+        </form>
+    </div>
+</nav>
+
+{{!-- Pamiętaj,aby załatwić sprawę z pokazywaniem się danych w widoku użytkownika --}}
+<div class="user-page" id="user-page">
+    <div class="user-info" id="user-details" style="
+    font-style:italic; background-color: #063ba4; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <div class="user-field">
+            <div class="field-label">
+                <strong>Nazwa Użytkownika:</strong>
+            </div>
+            <div class="field-value">
+                {{user.userName}}
+            </div>
+        </div>
+
+        <div class="user-field">
+            <div class="field-label">
+                <strong>Email{poufny}:</strong>
+            </div>
+            <div class="field-value">
+                {{user.encryptedEmail}}
+            </div>
+        </div>
+
+        <div class="user-field">
+            <div class="field-label">
+                <strong>ID użytkownika{poufne}:</strong>
+            </div>
+            <div class="field-value">
+                {{user.encryptedId}}
+            </div>
+        </div>
+        {{!-- Lepsza metoda z przekazaniem id w adresie URL --}}
+    </div>
+
+    <form action="/user/DataView" method="GET">
+        <div class="text-center" id="protected-link" style="filter: blur(10px); transition: filter 0.5s ease;">
+            <h1 style="font-style: italic;">Link Przekierowujący</h1>
+            <code id="connecting-string" onclick="mongoDBCompassDataProtectionFilter()">
+                mongodb://localhost:27017/lottery-database?readPreference=primary&directConnection=false&ssl=false
+        </code>
+            <p class="text-muted">Skopiuj link, aby uzyskać dostęp do danych użytkownika{link ten daje dostęp do bazy
+                MongoDB z zaszyfrowaną zawartością.W celu deszyfracji danych kliknij niebieską ikonę na dole i postępuj
+                zgodnie z dalszymi instrukcjami.</p>
+        </div>
+        <button type="button" onclick="unlockProtectedLink()"
+            style="font-style: italic;border-radius: 5px; font-weight: bold;margin-bottom: 10px;background-color: #157b03;">Odblokuj
+            widok</button>
+        <div class="decrypt-section">
+            <h2 style="font-style: italic;">Deszyfracja danych{Kod QR}</h2>
+            <button type="button" class="btn btn-warning" onclick="decrypteData()"
+                style="background-color: rgb(8, 57, 219); font-style: italic;font-weight: bold;">
+                <p>Dane są odszyfrowywane czasowo.</p>
+                <p>Wymagane jest,aby wpisać klucz weryfikacyjny z ciągu znakowego
+                    generowanego z kodu QR.</p>
+            </button>
+            <div id="qrcode"
+                style="width: 320px; height: 320px;margin: left auto;background-color: #f8f9fa;display:none"></div>
+            <p><small>Pozostało prób: <span id="attempts-display">3</span>/3</small></p>
+            <div id="timing-inference" style="display: none;" class="alert alert-warning">Timer</div>
+        </div>
+    </form>
+    <br>
+    <footer>
+        <p>&copy; 2025 Loteria osobowości. Autorstwa: Mikołaj Gafiuk.</p>
+    </footer>
+
+    {{!-- Biblioteka generująca kod QR --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    {{!-- defer służy do opóźnienia wykonania skryptu do momentu, gdy strona zostanie w pełni załadowana --}}
+    <script>
+        window.onload = function () {
+            document.getElementById('qrcode').innerHTML = '';
+        };//ten kod resetuje zawartość div'a z kodem QR
+
+        function mongoDBCompassDataProtectionFilter() {
+            const UserId = "{{user.encryptedId}}";
+            const compasURL = `mongodb://localhost:27017/lottery-database?readPreference=primary&directConnection=false&ssl=false`;
+            document.getElementById('connecting-string').textContent = compasURL;
+        }
+
+        function AttemptsCount() {
+            const userId = "{{user.encryptedId}}";
+            const storageKey = `attempts_${userId}`;
+            const timeKey = `lastAttempt_${userId}`;
+
+            const savedAttempts = localStorage.getItem(storageKey);
+            const lastAttempt = localStorage.getItem(timeKey);
+            const now = new Date().getTime();
+
+            if (lastAttempt) {
+                const timeDifference = now - parseInt(lastAttempt);
+                const hoursElapsed = timeDifference / (1000 * 60 * 60);//Sprawdź, czy minęło 24 godziny
+                if (hoursElapsed >= 24) {
+                    localStorage.setItem(storageKey, '2');
+                    localStorage.removeItem(timeKey);
+                    return 2;
+                }
+            }
+            return savedAttempts ? parseInt(savedAttempts) : 2;
+        }
+
+        let attempts = AttemptsCount();
+        document.getElementById('attempts-display').textContent = attempts;
+
+        function toBase64(string) {
+            return window.btoa(unescape(string));
+        }//pozwala obsługiwać ciągi znaków w formacie Base64 i obce znaki nie będące znakami łacińskimi.
+
+        function decrypteData() {
+            if (attempts <= 0) {
+                alert('Przekroczono limit prób odszyfrowania danych. Spróbuj ponownie za 24h');
+                return;
+            }
+
+            const qrString = "__рэтэзІугъэбзнкІыэр";
+            const URL = `https://www.google.com/search?q=${encodeURIComponent(qrString)}`;
+
+            // Zawsze czyść div przed generacją
+            const qrDiv = document.getElementById("qrcode");
+            qrDiv.innerHTML = '';
+            qrDiv.style.display = "block";
+
+            // Zawsze generuj kod QR po kliknięciu
+            new QRCode(qrDiv, {
+                text: URL,
+                width: 320,
+                height: 320
+            });
+
+            const userInput = prompt('Wprowadź klucz weryfikacyjny, aby odblokować dostęp do danych (VerifyingComponent):');
+            if (!userInput) {
+                alert('Nie wprowadzono klucza weryfikacyjnego');
+                return;
+            }
+            const VerifyingComponent = userInput;
+
+            const resolvingKey = "ІункІыбзэр_гъэтэрэз";
+
+            const normalize = str => str ? str.normalize('NFC').replace(/\s+/g, '').trim() : '';//Oczyszczenie kodu z możliwych znaków wsatwionych automatycznie
+            const inputNormalized = normalize(VerifyingComponent);
+            const keyNormalized = normalize(resolvingKey);
+
+            // Porównanie z normalizacją
+            if (inputNormalized !== keyNormalized) {
+                alert('❌ Nieprawidłowy klucz weryfikacyjny! Brak autoryzacji dostępu.');
+                attempts--;
+                document.getElementById('attempts-display').textContent = attempts;//Wyświetl pozostałe próby
+                const userId = "{{user.encryptedId}}";
+                const attemptsForUsage = `attempts_${userId}`;
+                const timeFrame = `lastAttempt_${userId}`;
+                localStorage.setItem(attemptsForUsage, attempts.toString());
+                localStorage.setItem(timeFrame, new Date().getTime().toString());
+                return;
+            } else {
+                showDataView();
+            }
+
+            function showDataView() {
+                const userInformation = {
+                    email: "{{ user.email }}",
+                    userName: "{{ user.userName }}",
+                    userId: "{{ user.id }}",
+                    password: "{{ user.password }}"
+                }
+
+                const newInnerHTML = document.getElementById('user-details');
+                newInnerHTML.innerHTML += `
+                 <div class="user-info2" style="margin-top: 20px; padding: 15px; border: 2px solid #28a745; border-radius: 5px; background-color: #e6ffed;">
+                     <h3>Informacje{jawne} o użytkowniku</h3>
+                     <p><strong>Nazwa użytkownika:</strong> ${userInformation.userName}</p>
+                     <p><strong>ObjectId:<strong>${userInformation.userId}</p>
+                     <p><strong>Email:</strong> ${userInformation.email}</p>
+                     <p><strong>Hasło:</strong> ${userInformation.password}</p>
+                 </div>
+                `}
+
+            attempts--;
+            document.getElementById('attempts-display').textContent = attempts;
+
+            const userId = "{{user.encryptedId}}";
+            const attemptsForUsage = `attempts_${userId}`;
+            const timeFrame = `lastAttempt_${userId}`
+
+            localStorage.setItem(attemptsForUsage, attempts.toString());
+            localStorage.setItem(timeFrame, new Date().getTime().toString());
+
+            document.getElementById('timing-inference').style.display = 'block';
+
+            let timing = 30;
+            const timer = setInterval(() => {
+                timing--;
+                document.getElementById('timing-inference').textContent = `Dane będą widoczne przez ${timing} sekund.`;
+                if (timing <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('timing-inference').style.display = 'none';
+                    document.getElementById('qrcode').style.display = 'none';
+                    const infoBlock = newInnerHTML.querySelector('.user-info2');
+                    if (infoBlock) {
+                        infoBlock.remove();
+                    }
+                    alert('Dostęp do danych wygasł.');
+                }
+            }, 1000);
+        }
+
+        function unlockProtectedLink() {
+            const userInput = prompt('Wprowadź klucz weryfikacyjny, aby odblokować dostęp do danych (VerifyingComponent2):');
+            if (!userInput) {
+                alert('Nie wprowadzono hasła. Spróbuj ponownie.');
+                return;
+            }
+            const VerifyingComponent2 = userInput;
+            const resolvingKey2 = "24842671195248FGDS033hd";
+
+            const normalize = str => str ? str.normalize('NFC').replace(/\s+/g, '').trim() : '';
+            const inputNormalized = normalize(VerifyingComponent2);
+            const keyNormalized = normalize(resolvingKey2);
+
+            if (inputNormalized === keyNormalized) {
+                document.getElementById('protected-link').style.filter = 'none';
+                alert('✅ Dostęp odblokowany!');
+            } else {
+                alert('Nieprawidłowe hasło. Spróbuj ponownie.');
+            }
+        } 
+    </script>
+</div>

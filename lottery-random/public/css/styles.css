@@ -1,0 +1,231 @@
+/* Sekcja deszyfracji danych */
+.decrypt-section {
+    color: #000;
+}
+#loginForm {
+    background-color: #6f22b6;
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    font-style: italic;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid lab(12.62% 31.62 -45.72 / 0.444);
+    margin-left: 10px;
+}
+
+#loginFields {
+    display: flex;
+    flex-direction: column;
+}
+
+#email,
+#userName,
+#password {
+    border: 1px solid #180729;
+}
+
+#title {
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 45px;
+    font-style: italic;
+}
+
+#loginButton {
+    margin-top: 10px;
+    color: white;
+}
+
+#innerButton {
+    width: 100%;
+    color: white;
+    font-style: italic;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #1a37e1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#innerButton:hover {
+    background-color: #2c4ce6;
+}
+
+#registerLinkText {
+    display: flex;
+    justify-content: left;
+    margin-left: 8px;
+    font-style: italic;
+}
+
+#register-paragraph {
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+}
+
+#registrationForm {
+    background-color: #44e30b;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    font-style: italic;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    border: 1px solid lab(12.62% 31.62 -45.72 / 0.444);
+    margin-left: 10px;
+}
+
+#title2 {
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    font-style: italic;
+}
+
+#emailField,
+#passwordField {
+    display: flex;
+    flex-direction: column;
+}
+
+#loginLink {
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    font-style: italic;
+    color: white;
+}
+
+#loginLinkText {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    font-style: italic;
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 3px;
+}
+
+#registerButton {
+    margin-top: 70px;
+    color: white;
+    font-style: italic;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#innerButton2 {
+    width: 100%;
+    color: white;
+    font-style: italic;
+}
+
+.number {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
+
+.number:hover {
+    background: #007bff;
+    color: white;
+    transform: scale(1.1);
+    /* Powiększenie */
+}
+
+.number.spin {
+    animation: spin 0.5s infinite linear;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        background: white;
+        color: #007bff;
+    }
+
+    25% {
+        transform: rotate(90deg);
+        background: #007bff;
+        color: white;
+    }
+
+    50% {
+        transform: rotate(180deg);
+        background: white;
+        color: #007bff;
+    }
+
+    75% {
+        transform: rotate(270deg);
+        background: #007bff;
+        color: white;
+    }
+
+    100% {
+        transform: rotate(360deg);
+        background: white;
+        color: #007bff;
+    }
+}
+
+.number.picked {
+    animation: picked 0.5s ease-in-out;
+    background: #28a745 !important;
+    color: white !important;
+}
+
+@keyframes picked {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+    }
+
+    50% {
+        /* Powiększenie */
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(40, 167, 69, 0.5);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+    }
+}
+
+#numbers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: column;
+    gap: 15px;
+    margin-top: 20px 0;
+    padding: 10px;
+}
+
+#switching-numbers {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(45 deg, #6f22b6, #1a37e1);
+    border-radius: 15px;
+    margin: 10px 0
+}

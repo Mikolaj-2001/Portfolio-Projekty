@@ -1,0 +1,57 @@
+{{>headers}}
+
+<h1 id="title2">Rejestracja</h1>
+
+{{#if error}}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{{/if}}
+
+<form action="/user/register" method="post" id="registrationForm">
+    <div class="row g-3 align-items-center" id="emailField" style="margin-bottom: 10px;">
+        <div class="col-auto" style="margin-bottom: 4px;">
+            <label for="email" class="email-label"
+                style="text-align: center; vertical-align: middle; width: 100%; display: inline-block;">Podaj
+                email</label>
+            <input type="email" name="email" id="email" class="form-control" value="{{user.email}}" required
+                style="margin-top: 2px;">
+        </div>
+        <div class="col-auto" style="margin-bottom: 4px;">
+            <label for="userName" class="userName"
+                style="text-align: center; vertical-align: middle; width: 100%; display: inline-block;">Stwórz nazwę
+                użytkownika</label>
+            <input type="text" name="userName" id="userName" class="form-control" value="{{user.userName}}" required
+                style="margin-top: 2px;">
+        </div>
+    </div>
+    <div class="row g-3 align-items-center" id="passwordField" style="margin-bottom: 10px;">
+        <div class="col-auto" style="margin-bottom: 4px;">
+            <label for="password" class="password-label"
+                style="text-align: center; vertical-align: middle; width: 100%; display: inline-block;">Stwórz
+                hasło</label>
+            <input type="password" name="password" id="password" class="form-control" required style="margin-top: 2px;">
+        </div>
+        {{#if error}}
+        <div class="col-auto" id="passwordError">
+            <span id="passwordHelpInline" class="form-text">
+                Hasło musi zawierać co najmniej 8 znaków, w tym rónież: wielką literę, małą literę, cyfrę i znak
+                specjalny.
+            </span>
+        </div>
+        {{/if}}
+        <div class="col-auto" id="submitButton" style="margin-bottom: 8px;">
+            <button type="submit" class="btn btn-primary" id="registerButton" style="margin-bottom: 0;">Zarejestruj
+                się</button>
+        </div>
+        <br>
+        <div class="col-12 text-center" id="loginLink" style="margin-top: 0;">
+            <p id="loginLinkText" style="margin-top: 0;">Jeżeli posiadasz już konto <a href="/user/login"
+                    class="btn btn-link" id="innerButton2">Zaloguj się</a></p>
+        </div>
+    </div>
+</form>
+<br>
+<footer>
+    <p>&copy; 2025 Loteria osobowości. Autorstwa: Mikołaj Gafiuk.</p>
+</footer>

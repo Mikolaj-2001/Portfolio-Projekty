@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@types/hbs": "^4.0.5",
+    "express-rate-limit": "^8.0.1",
+    "hbs": "^4.2.0"
+  },
+  "scripts": {
+    "start": "node dist/main",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "start:nodemon": "nodemon dist/main.js"
+  }
+}

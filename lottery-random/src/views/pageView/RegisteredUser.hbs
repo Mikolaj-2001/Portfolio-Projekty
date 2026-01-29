@@ -1,0 +1,45 @@
+{{>headers}}
+
+<h1 id="title">Logowanie</h1>
+
+{{#if error}}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{{/if}}
+
+<form action="/user/login" method="post" id="loginForm">
+    <div class="row g-3 align-items-center" id="loginFields">
+        <div class="col-auto" style="display: flex; flex-direction: column; align-items: flex-start;">
+            <label for="email" class="email-label" style="margin-bottom: 2px;">Podaj email</label>
+            <input type="email" name="email" id="email" class="form-control" value="{{user.email}}" required>
+        </div>
+        <div class="col-auto" style="display: flex; flex-direction: column; align-items: flex-start;">
+            <label for="userName" class="userName" style="margin-bottom: 2px;">Podaj nazwę użytkownika</label>
+            <input type="text" name="userName" id="userName" class="form-control" value="{{user.userName}}" required>
+        </div>
+        <div class="col-auto" style="display: flex; flex-direction: column; align-items: flex-start;">
+            <label for="password" class="password-label" style="margin-bottom: 2px;">Podaj hasło</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+        {{#if error}}
+        <div class="col-auto">
+            <span id="passwordError" class="text-form">Hasło lub Nazwa użytkownika jest nieprawidłowe.Spróbuj
+                ponownie</span>
+        </div>
+        {{/if}}
+        <div class="col-auto" id="loginButton">
+            <button type="submit" class="btn btn-primary2" id="innerButton">Zaloguj się</button>
+        </div>
+    </div>
+</form>
+
+<div class="row mt-3">
+    <div class="col-12 text-center" id="registerLinkText">
+        <p id="register-paragraph">Nie masz konta? <a href="/user/register" class="btn btn-link">Zarejestruj się</a></p>
+    </div>
+</div>
+<br>
+<footer>
+    <p>&copy; 2025 Loteria osobowości. Autorstwa: Mikołaj Gafiuk.</p>
+</footer>

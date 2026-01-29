@@ -1,0 +1,155 @@
+{{>headers}}
+
+<h1 style="font-style: italic;">Loteria osobowości</h1>
+<nav class="navbar bg-body-tertiary" id="navbar">
+    <div class="container-fluid justify-content-start" id="sub-navbar">
+        <form action="/user/logout" method="post" style="display: inline;">
+            <button class="btn btn-outline-success me-2" type="submit" style="font-style: italic;">Wyloguj się</button>
+        </form>
+        <form action="/user/register" method="get">
+            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic;">Zarejestruj się</button>
+        </form>
+        <form action="/user/delete" method="post"
+            onsubmit="return confirm('Czy na pewno chcesz usunąć swoje konto? Ta operacja jest nieodwracalna!');">
+            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic; color: red;">Usuń konto</button>
+        </form>
+        <form action="/user/DataView" method="get">
+            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic;">Baza Danych</button>
+        </form>
+    </div>
+</nav>
+<div class="user-page" id="user-page">
+    <div class="user-info" id="user-details" style="
+    font-style:italic; background-color: #063ba4; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <div class="user-field">
+            <div class="field-label">
+                <strong>Nazwa Użytkownika:</strong>
+            </div>
+            <div class="field-value">
+                {{user.userName}}
+            </div>
+        </div>
+
+        <div class="user-field">
+            <div class="field-label">
+                <strong>Email{poufny}:</strong>
+            </div>
+            <div class="field-value">
+                {{user.email}}
+            </div>
+        </div>
+
+        <div class="user-field">
+            <div class="field-label">
+                <strong>ID użytkownika{poufne}:</strong>
+            </div>
+            <div class="field-value">
+                {{user._id}}
+            </div>
+        </div>
+        {{!-- Lepsza metoda z przekazaniem id w adresie URL --}}
+    </div>
+    <br>
+    <div id="Lottery-Numbers">
+        {{#if option}}
+        {{#switch option}}
+        {{#case 1}}
+        {{>Diligent}}
+        {{/case}}
+        {{#case 2}}
+        {{>DrainingVampire}}
+        {{/case}}
+        {{#case 3}}
+        {{>RushingOne}}
+        {{/case}}
+        {{#case 4}}
+        {{>WarmHearted}}
+        {{/case}}
+        {{#case 5}}
+        {{>Confident}}
+        {{/case}}
+        {{#case 6}}
+        {{>Depressive-one}}
+        {{/case}}
+        {{/switch}}
+        {{else}}
+        <div class="no-result" id="no-result">
+            <h2>Nie wybrano żadnej osobowości</h2>
+            <p>Wybierz jedną z dostępnych osobowości, aby zobaczyć szczegóły.</p>
+            {{#if message}}
+            <p><em>{{message}}</em></p>
+            {{/if}}
+        </div>
+        {{/if}}
+    </div>
+    <br>
+    <div id="lottery-buttons">
+        <div id="switching-numbers" style="display: none;">
+            <div id="numbers">
+                <div class="number" onclick="pick(1)">1</div>
+                <div class="number" onclick="pick(2)">2</div>
+                <div class="number" onclick="pick(3)">3</div>
+                <div class="number" onclick="pick(4)">4</div>
+                <div class="number" onclick="pick(5)">5</div>
+                <div class="number" onclick="pick(6)">6</div>
+            </div>
+        </div>
+        <form id="starting-form" {{#if option}} style="display: none" {{/if}}>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="button" onclick="start()" class="btn btn-secondary"
+                    style="font-style: italic; background-color: #0b3ed7; border: 1px solid #ccc;">
+                    Uruchom Loterię osobowości !
+                </button>
+            </div>
+        </form>
+
+        {{#if action._id}}
+        <form action="/user/action/update/{{action._id}}" method="get">
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button style="font-style: italic; background-color: #0b3ed7; border: 1px solid #ccc;"
+                    class="btn btn-secondary">
+                    Zaktualizuj Wybraną opcję
+                </button>
+            </div>
+        </form>
+
+        <form action="/user/action/delete/{{action._id}}" method="get">
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button style="font-style: italic; background-color: #0b3ed7; border: 1px solid #ccc;"
+                    class="btn btn-secondary">
+                    Usuń Wybraną opcję
+                </button>
+            </div>
+        </form>
+        {{/if}}
+    </div>
+</div>
+<br>
+<footer>
+    <p>&copy; 2025 Loteria osobowości. Autorstwa: Mikołaj Gafiuk.</p>
+</footer>
+
+<script>
+    const userId = '{{user._id}}';
+</script>
+
+<script>
+    function start() {
+        document.getElementById('starting-form').style.display = 'none';
+        // Pokazuje przyciski z numerami
+        document.getElementById('switching-numbers').style.display = 'block';
+        // Dodawanie klasy CSS do elementu HTML
+        document.querySelectorAll('.number').forEach(number => {
+            number.classList.add('spin');
+        });
+        // Usuwanie klasy CSS po 2 sekundach
+        setTimeout(() => document.querySelectorAll('.number').forEach(number => number.classList.remove('spin')), 2000);
+    }
+
+    function pick(number) {
+        // Przypisuje zdarzenie kliknięcia do elementu HTML
+        event.target.classList.add('picked');
+        // Ustawienie timeoutu na 0.5 sekundy i przekierowanie do akcji loterii
+        setTimeout(() => window.location.href = `/user/action/lottery/${userId}?option=${number}`, 500);
+    }
+</script>
