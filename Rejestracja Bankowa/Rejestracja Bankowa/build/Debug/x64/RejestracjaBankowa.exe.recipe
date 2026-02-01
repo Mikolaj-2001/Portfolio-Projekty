@@ -2,33 +2,33 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\x64\Debug\RejestracjaBankowa.exe</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\x64\Debug\RejestracjaBankowa.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\accessgranted.png</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\accessgranted.png</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\accessout.png</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\accessout.png</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\complete.gif</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\complete.gif</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\complete2.gif</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\complete2.gif</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\In-writing.gif</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\In-writing.gif</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\processfull.gif</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\processfull.gif</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\Processing.gif</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\Processing.gif</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder całościowy\Aplikacja Bankowa(oryginał)\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\RegisteringOk.gif</FullPath>
+      <FullPath>C:\Users\kazac\OneDrive\Pulpit\C++-folder\Aplikacja-Bankowa\Rejestracja Bankowa\Rejestracja Bankowa\Obrazy\RegisteringOk.gif</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

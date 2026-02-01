@@ -26,10 +26,16 @@ namespace RejestracjaBankowa {
 			Logowanie(int emittedId2)
 			{
 				InitializeComponent();
+				this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+				this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
+				this->TopMost = true;
+
 				id = emittedId2;
-				//
-				//TODO: W tym miejscu dodaj kod konstruktora
-				//
+
+				processTimer = gcnew System::Windows::Forms::Timer();
+				processTimer->Interval = 3000; // Ustaw interwa³ na 3 sekundy
+				processTimer->Tick += gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick);
+				this->processTimer->Start();
 			}
 
 		protected:
@@ -61,8 +67,8 @@ namespace RejestracjaBankowa {
 		private: System::Windows::Forms::Button^ LogInBtn;
 		private: System::Windows::Forms::Button^ regRedirect;
 		private: System::Windows::Forms::Label^ label5;
-		private: System::Windows::Forms::ImageList^ ImList1;
-		private: System::Windows::Forms::ImageList^ ImList2;
+
+
 
 
 		private: System::Windows::Forms::CheckedListBox^ DataRecognising;
@@ -87,7 +93,6 @@ namespace RejestracjaBankowa {
 		/// </summary>
 			void InitializeComponent(void)
 			{
-				this->components = (gcnew System::ComponentModel::Container());
 				System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Logowanie::typeid));
 				this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 				this->Personaltxt = (gcnew System::Windows::Forms::MaskedTextBox());
@@ -106,8 +111,6 @@ namespace RejestracjaBankowa {
 				this->DataRecognising = (gcnew System::Windows::Forms::CheckedListBox());
 				this->process = (gcnew System::Windows::Forms::PictureBox());
 				this->DataAuth = (gcnew System::Windows::Forms::DataGridView());
-				this->ImList1 = (gcnew System::Windows::Forms::ImageList(this->components));
-				this->ImList2 = (gcnew System::Windows::Forms::ImageList(this->components));
 				this->groupBox1->SuspendLayout();
 				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->access))->BeginInit();
 				this->groupBox2->SuspendLayout();
@@ -140,18 +143,18 @@ namespace RejestracjaBankowa {
 				// 
 				// Personaltxt
 				// 
-				this->Personaltxt->Location = System::Drawing::Point(202, 132);
+				this->Personaltxt->Location = System::Drawing::Point(167, 132);
 				this->Personaltxt->Mask = L"00-000-000-000";
 				this->Personaltxt->Name = L"Personaltxt";
-				this->Personaltxt->Size = System::Drawing::Size(90, 25);
+				this->Personaltxt->Size = System::Drawing::Size(125, 25);
 				this->Personaltxt->TabIndex = 15;
 				// 
 				// IDtxt
 				// 
-				this->IDtxt->Location = System::Drawing::Point(214, 101);
+				this->IDtxt->Location = System::Drawing::Point(167, 101);
 				this->IDtxt->Mask = L"000-000-000";
 				this->IDtxt->Name = L"IDtxt";
-				this->IDtxt->Size = System::Drawing::Size(78, 25);
+				this->IDtxt->Size = System::Drawing::Size(125, 25);
 				this->IDtxt->TabIndex = 14;
 				// 
 				// regRedirect
@@ -213,7 +216,7 @@ namespace RejestracjaBankowa {
 				// label4
 				// 
 				this->label4->AutoSize = true;
-				this->label4->Location = System::Drawing::Point(144, 135);
+				this->label4->Location = System::Drawing::Point(117, 132);
 				this->label4->Name = L"label4";
 				this->label4->Size = System::Drawing::Size(52, 19);
 				this->label4->TabIndex = 5;
@@ -222,7 +225,7 @@ namespace RejestracjaBankowa {
 				// label3
 				// 
 				this->label3->AutoSize = true;
-				this->label3->Location = System::Drawing::Point(45, 104);
+				this->label3->Location = System::Drawing::Point(18, 104);
 				this->label3->Name = L"label3";
 				this->label3->Size = System::Drawing::Size(151, 19);
 				this->label3->TabIndex = 4;
@@ -293,20 +296,6 @@ namespace RejestracjaBankowa {
 				this->DataAuth->Size = System::Drawing::Size(340, 163);
 				this->DataAuth->TabIndex = 0;
 				// 
-				// ImList1
-				// 
-				this->ImList1->ImageStream = (cli::safe_cast<System::Windows::Forms::ImageListStreamer^>(resources->GetObject(L"ImList1.ImageStream")));
-				this->ImList1->TransparentColor = System::Drawing::Color::Transparent;
-				this->ImList1->Images->SetKeyName(0, L"accessgranted.png");
-				this->ImList1->Images->SetKeyName(1, L"accessout.png");
-				// 
-				// ImList2
-				// 
-				this->ImList2->ImageStream = (cli::safe_cast<System::Windows::Forms::ImageListStreamer^>(resources->GetObject(L"ImList2.ImageStream")));
-				this->ImList2->TransparentColor = System::Drawing::Color::Transparent;
-				this->ImList2->Images->SetKeyName(0, L"Processing.gif");
-				this->ImList2->Images->SetKeyName(1, L"processfull.gif");
-				// 
 				// Logowanie
 				// 
 				this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -328,22 +317,48 @@ namespace RejestracjaBankowa {
 			}
 #pragma endregion
 		private: System::Void Logowanie_Load(System::Object^ sender, System::EventArgs^ e) {
+			this->process->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Normal;
+			processingGif = System::Drawing::Image::FromFile("Processing.gif");
+			processFullGif = System::Drawing::Image::FromFile("Processfull.gif");
+			this->process->Image = this->processingGif;
+			this->process->Image = this->processFullGif;
+
+			this->access->SizeMode = System::Windows::Forms::PictureBoxSizeMode::AutoSize;
+			System::Drawing::Image^ accessDeniedImg = System::Drawing::Image::FromFile("accessout.png");
+			if (this->access->Image != nullptr) {
+				delete this->access->Image;
+			}
+			this->access->Image = accessDeniedImg;
+
+			this->access->SizeMode = System::Windows::Forms::PictureBoxSizeMode::AutoSize;
+			System::Drawing::Image^ accessGrantedImg = System::Drawing::Image::FromFile("accessgranted.png");
+			if (this->access->Image != nullptr) {
+				delete this->access->Image;
+			}
+			this->access->Image = accessGrantedImg;
 		}
+
+		private:System::Drawing::Image^ processingGif;
+		private:System::Drawing::Image^ processFullGif;
+		private:System::Windows::Forms::Timer^ processTimer;
+
+		private: System::Void OnProcessTimerTick(System::Object^ sender, System::EventArgs^ e) {
+			try {
+				System::Drawing::ImageAnimator::UpdateFrames(this->processingGif);// Aktualizuj klatki animacji GIF
+				System::Drawing::ImageAnimator::UpdateFrames(this->processFullGif);// Aktualizuj klatki animacji GIF
+				this->process->Invalidate(); // Wymuœ ponowne narysowanie PictureBox
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("B³¹d animacji GIF: " + ex->Message);
+			}
+		}
+
 		public:void CzyszczeniePól() {
 			Usertxt->Clear();
 			Passwordtxt->Clear();
 			IDtxt->Clear();
 			Personaltxt->Clear();
 		};
-
-		private:System::Void oknoG³ówneApliakcji(System::Object^ sender, System::EventArgs^ e) {
-			Logowanie::FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
-		}
-
-		private:System::Void przypnijOkno(System::Object^ sender, System::EventArgs^ e) {
-			Logowanie::FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
-			TopMost = true;
-		}
 
 		private: System::Void LogInBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 			String^ u¿ytkownik = Usertxt->Text->Trim();
@@ -359,7 +374,9 @@ namespace RejestracjaBankowa {
 
 			array< String^ >^ pola = { u¿ytkownik, has³o1, ID1, PESEL1 };
 			for (int existingChar = 0; existingChar < pola->Length; ++existingChar) {
-				if (!System::Text::RegularExpressions::Regex::IsMatch(pola[existingChar], "^\\p{L}\\d+$")) {
+				String^ value = pola[existingChar]->Trim();
+				if (value->Length == 0) continue;// Pomijaj puste pola
+				if (!System::Text::RegularExpressions::Regex::IsMatch(pola[existingChar], "^[\\p{L}0-9\\-]+$")) {
 					MessageBox::Show("Dane zawieraj¹ niedozwolone znaki.", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
 					DataAuth->Enabled = false;
 					return;
@@ -367,7 +384,8 @@ namespace RejestracjaBankowa {
 			};
 			if (u¿ytkownik->Length < 3 || has³o1->Length < 12 || ID1->Length < 9 || PESEL1->Length < 11) {
 				MessageBox::Show("Dane s¹ niepe³ne lub nie zosta³y wpisane", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				access->Image = ImList1->Images["accessout.png"];
+				this->access->Image = this->accessDeniedImg;
+				this->access->Image = System::Drawing::Image::FromFile("accessout.png");
 				return;
 			}
 			else {
@@ -376,7 +394,8 @@ namespace RejestracjaBankowa {
 			OdbcConnection^ connection = gcnew OdbcConnection(konfiguracja);
 			try {
 				process->Visible = true;
-				process->Image = ImList2->Images["Processing.gif"];
+				this->process->Image = this->processingGif;
+				this->process->Image = System::Drawing::Image::FromFile("Processing.gif");
 				OdbcCommand^ command = connection->CreateCommand();
 				OdbcTransaction^ transakcja;
 				connection->Open();
@@ -411,6 +430,11 @@ namespace RejestracjaBankowa {
 						}
 						catch (...) {}// Obs³uga b³êdów konwersji lub rzutowania
 
+						if (DataRecognising != nullptr) {
+							for (int previous = 0; previous < DataRecognising->Items->Count; previous++) {
+								DataRecognising->SetItemChecked(previous, false);// Resetowanie wszystkich zaznaczeñ
+							}
+						}
 						// Przetwarzanie wierszy w DataAuth,tak aby ustawiæ odpowiednie pola w DataRecognising
 						for (int g = 0; g < DataAuth->Rows->Count; g++) {
 							if (DataAuth->Rows[g]->IsNewRow) continue;// Pomijaj wiersz nowy,poniewa¿ nie zawiera danych
@@ -421,7 +445,7 @@ namespace RejestracjaBankowa {
 
 							bool dataExistence = loginObj != nullptr && passwordObj != nullptr && idObj != nullptr && personalObj != nullptr;
 							if (dataExistence) {
-								DataRecognising->SetSelected(0, true);
+								DataRecognising->SetItemChecked(0, true);
 							}
 
 							bool dataRelevance =
@@ -430,7 +454,7 @@ namespace RejestracjaBankowa {
 								idObj != nullptr && idObj->ToString() == IDtxt->Text &&
 								personalObj != nullptr && personalObj->ToString() == Personaltxt->Text;
 							if (dataRelevance) {
-								DataRecognising->SetSelected(1, true);
+								DataRecognising->SetItemChecked(1, true);
 							}
 
 							bool dataCorrectness =
@@ -439,10 +463,10 @@ namespace RejestracjaBankowa {
 								idObj != nullptr && idObj->ToString() != "" &&
 								personalObj != nullptr && personalObj->ToString() != "";
 							if (dataCorrectness) {
-								DataRecognising->SetSelected(2, true);
+								DataRecognising->SetItemChecked(2, true);
 							}
 							if (idObj != nullptr && idObj->ToString() != "") {
-								DataRecognising->SetSelected(3, true);
+								DataRecognising->SetItemChecked(3, true);
 							}
 						}
 					}
@@ -452,14 +476,12 @@ namespace RejestracjaBankowa {
 					}
 
 					if (input1 > 0 && DataAuth->Visible == true) {
-						command->CommandText = "INSERT INTO Uwierzytelnienie " +
-							"(`D._klienta_Nr_id_klienta`, " +
-							"`D._klienta_Rejes_Login_u¿yt.`, " +
-							"`D._klienta_PESEL`, " +
-							"`D._klienta_Rejes.Has³o`)" +
-							"SELECT `Nr_id_klienta`, `Login_u¿yt.`, `PESEL`, `Has³o` " +
-							"FROM `D_klienta` " +
-							"WHERE PESEL IS NOT NULL;";
+						command->CommandText =
+							"INSERT INTO `Uwierzytelnienie` (`D._klienta_Nr_id_klienta`, `D._klienta_Rejes._Login_u¿yt.`, `D._klienta_Rejes._PESEL`, `D._klienta_Rejes._Has³o`) "
+							"SELECT d.`Nr_id_klienta`, r.`Login_u¿yt.`, r.`PESEL`, r.`Has³o` "
+							"FROM `D._klienta` AS d "
+							"JOIN `Rejes.` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
+							"WHERE r.`PESEL` IS NOT NULL;";
 
 						int input2 = command->ExecuteNonQuery();
 
@@ -479,7 +501,8 @@ namespace RejestracjaBankowa {
 				}
 
 				process->Visible = true;
-				process->Image = ImList2->Images["processfull.gif"];
+				this->process->Image = this->processFullGif;
+				this->process->Image = System::Drawing::Image::FromFile("Processfull.gif");
 
 				OdbcCommand^ command2 = gcnew OdbcCommand("Select Nr_id_klienta from `D._klienta`", connection);
 				OdbcDataReader^ reader = nullptr;//inicjalizacja czytnika danych jako nullptr,aby unikn¹æ b³êdów w bloku finally
@@ -512,7 +535,8 @@ namespace RejestracjaBankowa {
 			}
 			if (process) {
 				access->Visible = true;
-				access->Image = ImList1->Images["accessfull.gif"];
+				this->access->Image = this->accessGrantedImg;
+				this->access->Image = System::Drawing::Image::FromFile("accessgranted.png");
 			}
 			CzyszczeniePól();
 			connection->Close();
@@ -524,4 +548,5 @@ namespace RejestracjaBankowa {
 		private: System::Void regRedirect_Click(System::Object^ sender, System::EventArgs^ e);
 		};
 	}
+}
 }
