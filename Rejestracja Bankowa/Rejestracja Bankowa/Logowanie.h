@@ -341,6 +341,8 @@ namespace RejestracjaBankowa {
 		private:System::Drawing::Image^ processingGif;
 		private:System::Drawing::Image^ processFullGif;
 		private:System::Windows::Forms::Timer^ processTimer;
+		private:System::Drawing::Image^ accessDeniedImg;
+		private:System::Drawing::Image^ accessGrantedImg;
 
 		private: System::Void OnProcessTimerTick(System::Object^ sender, System::EventArgs^ e) {
 			try {
@@ -359,6 +361,7 @@ namespace RejestracjaBankowa {
 			IDtxt->Clear();
 			Personaltxt->Clear();
 		};
+			  bool accessGrantedFlag = true;
 
 		private: System::Void LogInBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 			String^ u¿ytkownik = Usertxt->Text->Trim();
@@ -385,7 +388,9 @@ namespace RejestracjaBankowa {
 			if (u¿ytkownik->Length < 3 || has³o1->Length < 12 || ID1->Length < 9 || PESEL1->Length < 11) {
 				MessageBox::Show("Dane s¹ niepe³ne lub nie zosta³y wpisane", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				this->access->Image = this->accessDeniedImg;
-				this->access->Image = System::Drawing::Image::FromFile("accessout.png");
+				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+				this->access->Image = this->accessDeniedImg != nullptr
+					? this->accessDeniedImg : System::Drawing::Image::FromFile("accessout.png");
 				return;
 			}
 			else {
@@ -395,7 +400,10 @@ namespace RejestracjaBankowa {
 			try {
 				process->Visible = true;
 				this->process->Image = this->processingGif;
-				this->process->Image = System::Drawing::Image::FromFile("Processing.gif");
+				if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+				this->access->Image = this->processingGif != nullptr
+					? this->processingGif : System::Drawing::Image::FromFile("Processing.gif");
+
 				OdbcCommand^ command = connection->CreateCommand();
 				OdbcTransaction^ transakcja;
 				connection->Open();
@@ -501,17 +509,22 @@ namespace RejestracjaBankowa {
 				}
 
 				process->Visible = true;
-				this->process->Image = this->processFullGif;
-				this->process->Image = System::Drawing::Image::FromFile("Processfull.gif");
+				this->process->Image = this->processFullGif;// Ustawienie statycznego obrazu po zakoñczeniu przetwarzania
+				if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+				this->process->Image = this->processFullGif != nullptr
+					? this->processFullGif : System::Drawing::Image::FromFile("processfull.gif");
 
 				OdbcCommand^ command2 = gcnew OdbcCommand("Select Nr_id_klienta from `D._klienta`", connection);
 				OdbcDataReader^ reader = nullptr;//inicjalizacja czytnika danych jako nullptr,aby unikn¹æ b³êdów w bloku finally
 
 				try {
-					String^ keyOfPicture = "accessgranted.png";
-					int idIndex = ImList1->Images->IndexOfKey(keyOfPicture);
+					this->accessGrantedFlag = true;
+					this->access->Image = this->accessGrantedImg;
+					if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+					this->access->Image = this->accessGrantedImg != nullptr
+						? this->accessGrantedImg : System::Drawing::Image::FromFile("accessgranted.png");
 
-					if (idIndex >= 0) {
+					if (this->accessGrantedFlag >= 0) {
 						reader = command2->ExecuteReader();
 						if (reader->Read()) {
 							int id_u¿ytkownika = reader->GetInt32(0);
@@ -536,7 +549,9 @@ namespace RejestracjaBankowa {
 			if (process) {
 				access->Visible = true;
 				this->access->Image = this->accessGrantedImg;
-				this->access->Image = System::Drawing::Image::FromFile("accessgranted.png");
+				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+				this->access->Image = this->accessGrantedImg != nullptr
+					? this->accessGrantedImg : System::Drawing::Image::FromFile("accessgranted.png");
 			}
 			CzyszczeniePól();
 			connection->Close();
@@ -549,4 +564,4 @@ namespace RejestracjaBankowa {
 		};
 	}
 }
-}
+

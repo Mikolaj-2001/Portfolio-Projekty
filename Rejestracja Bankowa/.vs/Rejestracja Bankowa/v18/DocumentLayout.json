@@ -7,28 +7,8 @@
       "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Logowanie.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Logowanie.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Logowanie.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
-      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Logowanie.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
       "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
-      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8882513C-7226-5B1E-B976-4B46FBFCE61F}|Rejestracja Bankowa\\Rejestracja Bankowa.vcxproj|solutionrelative:Rejestracja Bankowa\\Rejestracja1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,58 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Logowanie.h",
-              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Logowanie.h",
-              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Logowanie.h",
-              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Logowanie.h",
-              "RelativeToolTip": "Rejestracja Bankowa\\Logowanie.h",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACUAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-02-01T03:34:30.44Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Logowanie.h [Projekt]",
-              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Logowanie.h",
-              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Logowanie.h",
-              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Logowanie.h [Projekt]",
-              "RelativeToolTip": "Rejestracja Bankowa\\Logowanie.h [Projekt]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-01-31T05:51:31.23Z",
-              "EditorCaption": " [Projekt]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Rejestracja1.h",
-              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h",
-              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja1.h",
-              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h",
-              "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja1.h",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAACMAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-01-31T05:37:55.617Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Rejestracja1.h [Projekt]",
-              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h",
-              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja1.h",
-              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.h [Projekt]",
-              "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja1.h [Projekt]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-01-31T05:37:53.577Z",
-              "EditorCaption": " [Projekt]"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -98,34 +28,22 @@
               "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja.h",
               "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h",
               "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja.h",
-              "ViewState": "AgIAAJAIAAAAAAAAAAAAALgPAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAGIIAAAAAAAAAAAswHEIAACJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-01-31T05:35:10.284Z",
+              "WhenOpened": "2026-02-03T03:12:52.43Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Rejestracja.h [Projekt]",
               "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h",
               "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja.h",
               "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja.h [Projekt]",
               "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja.h [Projekt]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-01-31T05:35:08.292Z",
+              "WhenOpened": "2026-02-03T03:12:48.677Z",
               "EditorCaption": " [Projekt]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Rejestracja1.cpp",
-              "DocumentMoniker": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.cpp",
-              "RelativeDocumentMoniker": "Rejestracja Bankowa\\Rejestracja1.cpp",
-              "ToolTip": "C:\\Users\\kazac\\OneDrive\\Pulpit\\C\u002B\u002B-folder\\Aplikacja-Bankowa\\Rejestracja Bankowa\\Rejestracja Bankowa\\Rejestracja1.cpp",
-              "RelativeToolTip": "Rejestracja Bankowa\\Rejestracja1.cpp",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-01-31T05:34:04.124Z"
             }
           ]
         }

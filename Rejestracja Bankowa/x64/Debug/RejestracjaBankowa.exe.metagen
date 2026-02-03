@@ -69,6 +69,7 @@ Class RejestracjaBankowa.Logowanie.Logowanie: AutoLayout, AnsiClass, Class, Publ
   :System.Windows.Forms.Form
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    Boolean accessGrantedFlag : Public
     System.String konfiguracja : Public
   Methods:
     CzyszczeniePól(): PrivateScope, Public, HideBySig
