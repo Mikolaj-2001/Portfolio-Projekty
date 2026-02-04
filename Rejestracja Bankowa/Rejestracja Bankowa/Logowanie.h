@@ -35,7 +35,6 @@ namespace RejestracjaBankowa {
 				processTimer = gcnew System::Windows::Forms::Timer();
 				processTimer->Interval = 3000; // Ustaw interwa³ na 3 sekundy
 				processTimer->Tick += gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick);
-				this->processTimer->Start();
 			}
 
 		protected:
@@ -316,26 +315,20 @@ namespace RejestracjaBankowa {
 
 			}
 #pragma endregion
+		public:
+			System::Drawing::Image^ LoadImageFromObrazy(System::String^ fileName) {
+				System::String^ path = System::IO::Path::Combine(Application::StartupPath, "Obrazy", fileName);// Utwórz pe³n¹ œcie¿kê do pliku obrazu
+				//[System::IO::Path::Combine]³¹czy fragmenty œcie¿ki w jedn¹ poprawnie sformatowan¹ œcie¿kê plikow¹ (dodaje separator katalogu tam, gdzie potrzeba). Nie odwo³uje siê do dysku — tylko tworzy ³añcuch znaków.
+				if (!System::IO::File::Exists(path)) return nullptr;// SprawdŸ, czy plik istnieje
+				return System::Drawing::Image::FromFile(path);
+			}
+
 		private: System::Void Logowanie_Load(System::Object^ sender, System::EventArgs^ e) {
-			this->process->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Normal;
-			processingGif = System::Drawing::Image::FromFile("Processing.gif");
-			processFullGif = System::Drawing::Image::FromFile("Processfull.gif");
-			this->process->Image = this->processingGif;
-			this->process->Image = this->processFullGif;
+			this->process->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 
-			this->access->SizeMode = System::Windows::Forms::PictureBoxSizeMode::AutoSize;
-			System::Drawing::Image^ accessDeniedImg = System::Drawing::Image::FromFile("accessout.png");
-			if (this->access->Image != nullptr) {
-				delete this->access->Image;
-			}
-			this->access->Image = accessDeniedImg;
+			this->access->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 
-			this->access->SizeMode = System::Windows::Forms::PictureBoxSizeMode::AutoSize;
-			System::Drawing::Image^ accessGrantedImg = System::Drawing::Image::FromFile("accessgranted.png");
-			if (this->access->Image != nullptr) {
-				delete this->access->Image;
-			}
-			this->access->Image = accessGrantedImg;
+			this->access->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 		}
 
 		private:System::Drawing::Image^ processingGif;
@@ -390,7 +383,7 @@ namespace RejestracjaBankowa {
 				this->access->Image = this->accessDeniedImg;
 				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 				this->access->Image = this->accessDeniedImg != nullptr
-					? this->accessDeniedImg : System::Drawing::Image::FromFile("accessout.png");
+					? this->accessDeniedImg : LoadImageFromObrazy("accessout.png");
 				return;
 			}
 			else {
@@ -398,12 +391,6 @@ namespace RejestracjaBankowa {
 			}
 			OdbcConnection^ connection = gcnew OdbcConnection(konfiguracja);
 			try {
-				process->Visible = true;
-				this->process->Image = this->processingGif;
-				if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
-				this->access->Image = this->processingGif != nullptr
-					? this->processingGif : System::Drawing::Image::FromFile("Processing.gif");
-
 				OdbcCommand^ command = connection->CreateCommand();
 				OdbcTransaction^ transakcja;
 				connection->Open();
@@ -412,7 +399,10 @@ namespace RejestracjaBankowa {
 				command->Transaction = transakcja;
 
 				for (int d = 0; d < 4; d++) {
-					command->CommandText = "Select `Rejes._Login_u¿yt.`,`Rejes._Has³o`,Nr_id_klienta,`Rejes._PESEL` from `D._klienta` where `Rejes._Login_u¿yt.` = ? and `Rejes._Has³o` = ? and Nr_id_klienta = ? and `Rejes._PESEL` = ?";
+					command->CommandText = "SELECT r.`Login_u¿yt.`, r.`Has³o`, d.`Nr_id_klienta`, r.`PESEL` "
+						"FROM `D._klienta` AS d "
+						"JOIN `Rejes.` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
+						"WHERE r.`Login_u¿yt.` = ? AND r.`Has³o` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
 					command->Parameters->Clear();
 					command->Parameters->AddWithValue("p1", u¿ytkownik);
 					command->Parameters->AddWithValue("p2", has³o1);
@@ -443,6 +433,12 @@ namespace RejestracjaBankowa {
 								DataRecognising->SetItemChecked(previous, false);// Resetowanie wszystkich zaznaczeñ
 							}
 						}
+						process->Visible = true;
+						this->process->Image = this->processingGif;
+						if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+						this->process->Image = this->processingGif != nullptr
+							? this->processingGif : LoadImageFromObrazy("Processing.gif");
+
 						// Przetwarzanie wierszy w DataAuth,tak aby ustawiæ odpowiednie pola w DataRecognising
 						for (int g = 0; g < DataAuth->Rows->Count; g++) {
 							if (DataAuth->Rows[g]->IsNewRow) continue;// Pomijaj wiersz nowy,poniewa¿ nie zawiera danych
@@ -482,7 +478,7 @@ namespace RejestracjaBankowa {
 						// brak wyników — input1 = 0, pozostaw DataAuth niewidoczne
 						DataAuth->Visible = false;
 					}
-
+					//Musisz zmieniæ nazyw kolun,czyli usun¹æ wszelkie kropki z nazw,¿eby nie powodowa³y b³êdów z przekazem danych
 					if (input1 > 0 && DataAuth->Visible == true) {
 						command->CommandText =
 							"INSERT INTO `Uwierzytelnienie` (`D._klienta_Nr_id_klienta`, `D._klienta_Rejes._Login_u¿yt.`, `D._klienta_Rejes._PESEL`, `D._klienta_Rejes._Has³o`) "
@@ -512,7 +508,7 @@ namespace RejestracjaBankowa {
 				this->process->Image = this->processFullGif;// Ustawienie statycznego obrazu po zakoñczeniu przetwarzania
 				if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 				this->process->Image = this->processFullGif != nullptr
-					? this->processFullGif : System::Drawing::Image::FromFile("processfull.gif");
+					? this->processFullGif : LoadImageFromObrazy("processfull.gif");
 
 				OdbcCommand^ command2 = gcnew OdbcCommand("Select Nr_id_klienta from `D._klienta`", connection);
 				OdbcDataReader^ reader = nullptr;//inicjalizacja czytnika danych jako nullptr,aby unikn¹æ b³êdów w bloku finally
@@ -522,7 +518,7 @@ namespace RejestracjaBankowa {
 					this->access->Image = this->accessGrantedImg;
 					if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 					this->access->Image = this->accessGrantedImg != nullptr
-						? this->accessGrantedImg : System::Drawing::Image::FromFile("accessgranted.png");
+						? this->accessGrantedImg : LoadImageFromObrazy("accessgranted.png");
 
 					if (this->accessGrantedFlag >= 0) {
 						reader = command2->ExecuteReader();
@@ -551,7 +547,10 @@ namespace RejestracjaBankowa {
 				this->access->Image = this->accessGrantedImg;
 				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 				this->access->Image = this->accessGrantedImg != nullptr
-					? this->accessGrantedImg : System::Drawing::Image::FromFile("accessgranted.png");
+					? this->accessGrantedImg : LoadImageFromObrazy("accessgranted.png");
+			}
+			if (this->processTimer != nullptr && this->processTimer->Enabled) {
+				this->processTimer->Start();
 			}
 			CzyszczeniePól();
 			connection->Close();
