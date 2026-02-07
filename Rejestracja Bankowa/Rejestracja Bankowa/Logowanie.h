@@ -399,10 +399,10 @@ namespace RejestracjaBankowa {
 				command->Transaction = transakcja;
 
 				for (int d = 0; d < 4; d++) {
-					command->CommandText = "SELECT r.`Login_u¿yt.`, r.`Has³o`, d.`Nr_id_klienta`, r.`PESEL` "
-						"FROM `D._klienta` AS d "
-						"JOIN `Rejes.` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
-						"WHERE r.`Login_u¿yt.` = ? AND r.`Has³o` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
+					command->CommandText = "SELECT r.`Login_u¿yt`, r.`Has³o`, d.`Nr_id_klienta`, r.`PESEL` "
+						"FROM `D_klienta` AS d "
+						"JOIN `Rejes` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
+						"WHERE r.`Login_u¿yt` = ? AND r.`Has³o` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
 					command->Parameters->Clear();
 					command->Parameters->AddWithValue("p1", u¿ytkownik);
 					command->Parameters->AddWithValue("p2", has³o1);
@@ -478,13 +478,12 @@ namespace RejestracjaBankowa {
 						// brak wyników — input1 = 0, pozostaw DataAuth niewidoczne
 						DataAuth->Visible = false;
 					}
-					//Musisz zmieniæ nazyw kolun,czyli usun¹æ wszelkie kropki z nazw,¿eby nie powodowa³y b³êdów z przekazem danych
 					if (input1 > 0 && DataAuth->Visible == true) {
 						command->CommandText =
-							"INSERT INTO `Uwierzytelnienie` (`D._klienta_Nr_id_klienta`, `D._klienta_Rejes._Login_u¿yt.`, `D._klienta_Rejes._PESEL`, `D._klienta_Rejes._Has³o`) "
-							"SELECT d.`Nr_id_klienta`, r.`Login_u¿yt.`, r.`PESEL`, r.`Has³o` "
-							"FROM `D._klienta` AS d "
-							"JOIN `Rejes.` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
+							"INSERT INTO `Uwierzytelnienie` (`D_klienta_Nr_id_klienta`, `D_klienta_Rejes_Login_u¿yt`, `D_klienta_Rejes_PESEL`, `D_klienta_Rejes_Has³o`) "
+							"SELECT d.`Nr_id_klienta`, r.`Login_u¿yt`, r.`PESEL`, r.`Has³o` "
+							"FROM `D_klienta` AS d "
+							"JOIN `Rejes` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
 							"WHERE r.`PESEL` IS NOT NULL;";
 
 						int input2 = command->ExecuteNonQuery();
@@ -510,7 +509,7 @@ namespace RejestracjaBankowa {
 				this->process->Image = this->processFullGif != nullptr
 					? this->processFullGif : LoadImageFromObrazy("processfull.gif");
 
-				OdbcCommand^ command2 = gcnew OdbcCommand("Select Nr_id_klienta from `D._klienta`", connection);
+				OdbcCommand^ command2 = gcnew OdbcCommand("Select Nr_id_klienta from `D_klienta`", connection);
 				OdbcDataReader^ reader = nullptr;//inicjalizacja czytnika danych jako nullptr,aby unikn¹æ b³êdów w bloku finally
 
 				try {
