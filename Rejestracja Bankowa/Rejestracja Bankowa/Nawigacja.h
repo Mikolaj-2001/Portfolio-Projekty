@@ -9,7 +9,7 @@ namespace RejestracjaBankowa {
 
 	public ref class Nawigacja abstract sealed {// Klasa statyczna Nawigacja do zarz¹dzania nawigacj¹ miêdzy formularzami.Nie mo¿e byæ instanciowana ani dziedziczona.
 	public:
-		static void otwórzLogowanie(System::Windows::Forms::Form^ form);//Metoda,która otwiera widok Logowania
-		static void otwórzRejestracje(Form^ parentForm,int id_u¿ytkownika);//Metoda,która otwiera widok Rejestracji
+		static void otwórzLogowanie(System::Windows::Forms::Form^ form, int id_u¿ytkownika);//Metoda,która otwiera widok Logowania
+		static void otwórzRejestracje(Form^ parentForm);//Metoda,która otwiera widok Rejestracji
 	};
 };

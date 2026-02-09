@@ -56,8 +56,8 @@ Class RejestracjaBankowa.Rejestracja+DownLoadingStructure`1[T]: AutoLayout, Ansi
     dataFoldering(String): PrivateScope, Public, HideBySig
 Class RejestracjaBankowa.Nawigacja: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
   Methods:
-    otwórzLogowanie(Form): PrivateScope, Public, Static, HideBySig
-    otwórzRejestracje(Form, Int32): PrivateScope, Public, Static, HideBySig
+    otwórzLogowanie(Form, Int32): PrivateScope, Public, Static, HideBySig
+    otwórzRejestracje(Form): PrivateScope, Public, Static, HideBySig
 Class RejestracjaBankowa.Rejestracja1.Rejestracja1: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

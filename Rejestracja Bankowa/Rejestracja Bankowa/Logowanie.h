@@ -525,7 +525,7 @@ namespace RejestracjaBankowa {
 							int id_u¿ytkownika = reader->GetInt32(0);
 							reader->Close();
 							this->Hide();
-							RejestracjaBankowa::Nawigacja::otwórzLogowanie(this);
+							RejestracjaBankowa::Nawigacja::otwórzRejestracje(this);
 						}
 					}
 				}
