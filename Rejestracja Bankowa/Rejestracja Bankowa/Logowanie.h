@@ -398,109 +398,113 @@ namespace RejestracjaBankowa {
 				command->Connection = connection;
 				command->Transaction = transakcja;
 
-				for (int d = 0; d < 4; d++) {
-					command->CommandText = "SELECT r.`Login_u¿yt`, r.`Has³o`, d.`Nr_id_klienta`, r.`PESEL` "
+				command->CommandText = "SELECT d.`Rejes_Login_u¿yt`, d.`Rejes_Has³o`, d.`Nr_id_klienta`, d.`Rejes_PESEL` "
+					"FROM `D_klienta` AS d "
+					"JOIN `Rejes` AS r ON "
+					"    r.`Login_u¿yt` = d.`Rejes_Login_u¿yt` "
+					"AND r.`Has³o`      = d.`Rejes_Has³o` "
+					"AND r.`PESEL`      = d.`Rejes_PESEL` "
+					"WHERE r.`Login_u¿yt` = ? AND r.`Has³o` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
+
+				command->Parameters->Clear();
+				command->Parameters->AddWithValue("p1", u¿ytkownik);
+				command->Parameters->AddWithValue("p2", has³o1);
+				command->Parameters->AddWithValue("p3", ID1);
+				command->Parameters->AddWithValue("p4", PESEL1);
+
+				OdbcDataAdapter^ dane = gcnew OdbcDataAdapter(command);
+				DataTable^ tabela = gcnew DataTable();
+				dane->Fill(tabela);
+
+				int input1 = tabela->Rows->Count;
+
+				// Wype³nij widok danych i wykonaj walidacje na istniej¹cych wierszach
+				if (input1 > 0) {
+					DataAuth->DataSource = tabela;
+					DataAuth->Visible = true;
+
+					// Pobierz id u¿ytkownika z pierwszego wiersza (kolumna 2 zgodnie z SELECT)
+					int id_u¿ytkownika = 0;
+					try {
+						Object^ idObj = (safe_cast<DataRow^>(tabela->Rows[0]))[2];//Rzzutowanie na DataRow i pobranie wartoœci kolumny 2
+						if (idObj != nullptr) id_u¿ytkownika = Convert::ToInt32(idObj);
+					}
+					catch (...) {}// Obs³uga b³êdów konwersji lub rzutowania
+
+					if (DataRecognising != nullptr) {
+						for (int previous = 0; previous < DataRecognising->Items->Count; previous++) {
+							DataRecognising->SetItemChecked(previous, false);// Resetowanie wszystkich zaznaczeñ
+						}
+					}
+					process->Visible = true;
+					this->process->Image = this->processingGif;
+					if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+					this->process->Image = this->processingGif != nullptr
+						? this->processingGif : LoadImageFromObrazy("Processing.gif");
+
+					// Przetwarzanie wierszy w DataAuth,tak aby ustawiæ odpowiednie pola w DataRecognising
+					for (int g = 0; g < DataAuth->Rows->Count; g++) {
+						if (DataAuth->Rows[g]->IsNewRow) continue;// Pomijaj wiersz nowy,poniewa¿ nie zawiera danych
+						Object^ loginObj = DataAuth->Rows[g]->Cells[0]->Value;
+						Object^ passwordObj = DataAuth->Rows[g]->Cells[1]->Value;
+						Object^ idObj = DataAuth->Rows[g]->Cells[2]->Value;
+						Object^ personalObj = DataAuth->Rows[g]->Cells[3]->Value;
+
+						bool dataExistence = loginObj != nullptr && passwordObj != nullptr && idObj != nullptr && personalObj != nullptr;
+						if (dataExistence) {
+							DataRecognising->SetItemChecked(0, true);
+						}
+
+						bool dataRelevance =
+							loginObj != nullptr && loginObj->ToString() == u¿ytkownik &&
+							passwordObj != nullptr && passwordObj->ToString() == has³o1 &&
+							idObj != nullptr && idObj->ToString() == ID1 &&
+							personalObj != nullptr && personalObj->ToString() == PESEL1;
+						if (dataRelevance) {
+							DataRecognising->SetItemChecked(1, true);
+						}
+
+						bool dataCorrectness =
+							loginObj != nullptr && loginObj->ToString() != "" &&
+							passwordObj != nullptr && passwordObj->ToString() != "" &&
+							idObj != nullptr && idObj->ToString() != "" &&
+							personalObj != nullptr && personalObj->ToString() != "";// Sprawdzenie, czy dane s¹ niepuste i nie null,co mo¿e œwiadczyæ o ich poprawnoœci
+						if (dataCorrectness) {
+							DataRecognising->SetItemChecked(2, true);
+						}
+						if (idObj != nullptr && idObj->ToString() != "") {
+							DataRecognising->SetItemChecked(3, true);
+						}
+					}
+				}
+				else {
+					// brak wyników — input1 = 0, pozostaw DataAuth niewidoczne
+					DataAuth->Visible = false;
+				}
+				if (input1 > 0 && DataAuth->Visible == true) {
+					command->CommandText = "INSERT INTO `Uwierzytelnienie` (`D_klienta_Nr_id_klienta`, `D_klienta_Rejes_Imiê`, `D_klienta_Rejes_Nazwisko`, `D_klienta_Rejes_PESEL`, `D_klienta_Rejes_Has³o`, `D_klienta_Rejes_Login_u¿yt`) "
+						"SELECT d.`Nr_id_klienta`, r.`Imiê`, r.`Nazwisko`, r.`PESEL`, r.`Has³o`, r.`Login_u¿yt` "
 						"FROM `D_klienta` AS d "
-						"JOIN `Rejes` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
-						"WHERE r.`Login_u¿yt` = ? AND r.`Has³o` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
-					command->Parameters->Clear();
-					command->Parameters->AddWithValue("p1", u¿ytkownik);
-					command->Parameters->AddWithValue("p2", has³o1);
-					command->Parameters->AddWithValue("p3", ID1);
-					command->Parameters->AddWithValue("p4", PESEL1);
+						"JOIN `Rejes` AS r ON "
+						"    r.`Login_u¿yt` = d.`Rejes_Login_u¿yt` "
+						"AND r.`Has³o`      = d.`Rejes_Has³o` "
+						"AND r.`PESEL`      = d.`Rejes_PESEL` "
+						"WHERE r.`PESEL` IS NOT NULL;";
 
-					OdbcDataAdapter^ dane = gcnew OdbcDataAdapter(command);
-					DataTable^ tabela = gcnew DataTable();
-					dane->Fill(tabela);
+					int input2 = command->ExecuteNonQuery();
 
-					int input1 = tabela->Rows->Count;
-
-					// Wype³nij widok danych i wykonaj walidacje na istniej¹cych wierszach
-					if (input1 > 0) {
-						DataAuth->DataSource = tabela;
-						DataAuth->Visible = true;
-
-						// Pobierz id u¿ytkownika z pierwszego wiersza (kolumna 2 zgodnie z SELECT)
-						int id_u¿ytkownika = 0;
-						try {
-							Object^ idObj = (safe_cast<DataRow^>(tabela->Rows[0]))[2];//Rzzutowanie na DataRow i pobranie wartoœci kolumny 2
-							if (idObj != nullptr) id_u¿ytkownika = Convert::ToInt32(idObj);
-						}
-						catch (...) {}// Obs³uga b³êdów konwersji lub rzutowania
-
-						if (DataRecognising != nullptr) {
-							for (int previous = 0; previous < DataRecognising->Items->Count; previous++) {
-								DataRecognising->SetItemChecked(previous, false);// Resetowanie wszystkich zaznaczeñ
-							}
-						}
-						process->Visible = true;
-						this->process->Image = this->processingGif;
-						if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
-						this->process->Image = this->processingGif != nullptr
-							? this->processingGif : LoadImageFromObrazy("Processing.gif");
-
-						// Przetwarzanie wierszy w DataAuth,tak aby ustawiæ odpowiednie pola w DataRecognising
-						for (int g = 0; g < DataAuth->Rows->Count; g++) {
-							if (DataAuth->Rows[g]->IsNewRow) continue;// Pomijaj wiersz nowy,poniewa¿ nie zawiera danych
-							Object^ loginObj = DataAuth->Rows[g]->Cells[0]->Value;
-							Object^ passwordObj = DataAuth->Rows[g]->Cells[1]->Value;
-							Object^ idObj = DataAuth->Rows[g]->Cells[2]->Value;
-							Object^ personalObj = DataAuth->Rows[g]->Cells[3]->Value;
-
-							bool dataExistence = loginObj != nullptr && passwordObj != nullptr && idObj != nullptr && personalObj != nullptr;
-							if (dataExistence) {
-								DataRecognising->SetItemChecked(0, true);
-							}
-
-							bool dataRelevance =
-								loginObj != nullptr && loginObj->ToString() == Usertxt->Text &&
-								passwordObj != nullptr && passwordObj->ToString() == Passwordtxt->Text &&
-								idObj != nullptr && idObj->ToString() == IDtxt->Text &&
-								personalObj != nullptr && personalObj->ToString() == Personaltxt->Text;
-							if (dataRelevance) {
-								DataRecognising->SetItemChecked(1, true);
-							}
-
-							bool dataCorrectness =
-								loginObj != nullptr && loginObj->ToString() != "" &&
-								passwordObj != nullptr && passwordObj->ToString() != "" &&
-								idObj != nullptr && idObj->ToString() != "" &&
-								personalObj != nullptr && personalObj->ToString() != "";
-							if (dataCorrectness) {
-								DataRecognising->SetItemChecked(2, true);
-							}
-							if (idObj != nullptr && idObj->ToString() != "") {
-								DataRecognising->SetItemChecked(3, true);
-							}
-						}
-					}
-					else {
-						// brak wyników — input1 = 0, pozostaw DataAuth niewidoczne
-						DataAuth->Visible = false;
-					}
-					if (input1 > 0 && DataAuth->Visible == true) {
-						command->CommandText =
-							"INSERT INTO `Uwierzytelnienie` (`D_klienta_Nr_id_klienta`, `D_klienta_Rejes_Login_u¿yt`, `D_klienta_Rejes_PESEL`, `D_klienta_Rejes_Has³o`) "
-							"SELECT d.`Nr_id_klienta`, r.`Login_u¿yt`, r.`PESEL`, r.`Has³o` "
-							"FROM `D_klienta` AS d "
-							"JOIN `Rejes` AS r ON r.`Nr_id_klienta` = d.`Nr_id_klienta` "
-							"WHERE r.`PESEL` IS NOT NULL;";
-
-						int input2 = command->ExecuteNonQuery();
-
-						if (input2 > 0) {
-							transakcja->Commit();
-							MessageBox::Show("Dane zosta³y dodane do bazy!");
-						}
-						else {
-							transakcja->Rollback();
-							MessageBox::Show("Nie uda³o siê dodaæ danych do bazy !");
-						}
+					if (input2 > 0) {
+						transakcja->Commit();
+						MessageBox::Show("Dane zosta³y zweryfikowane w bazie danych!");
 					}
 					else {
 						transakcja->Rollback();
-						MessageBox::Show("Nie uda³o siê dodaæ danych do bazy !");
+						MessageBox::Show("Nie uda³o siê zweryfikowaæ danych w bazie !");
 					}
+				}
+				else {
+					transakcja->Rollback();
+					MessageBox::Show("Nie uda³o siê zweryfikowaæ danych w bazie !");
 				}
 
 				process->Visible = true;
@@ -525,7 +529,7 @@ namespace RejestracjaBankowa {
 							int id_u¿ytkownika = reader->GetInt32(0);
 							reader->Close();
 							this->Hide();
-							RejestracjaBankowa::Nawigacja::otwórzRejestracje(this);
+							
 						}
 					}
 				}
@@ -554,6 +558,8 @@ namespace RejestracjaBankowa {
 			CzyszczeniePól();
 			connection->Close();
 		};
+
+
 
 		public:
 			String^ konfiguracja = L"Driver={MySQL ODBC 9.4 Unicode Driver};Server=localhost;Database=rejestracja_bankowa;port=3306;user=root;Password=09041976Polska04@;CharSet=utf8mb4;Option=3";

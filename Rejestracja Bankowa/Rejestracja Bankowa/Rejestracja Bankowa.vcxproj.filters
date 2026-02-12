@@ -69,6 +69,36 @@
     <None Include="Obrazy\RegisteringOk.gif">
       <Filter>Pliki zasobów</Filter>
     </None>
+    <None Include="Obrazy\complete2.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\In-writing.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\processfull.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\Processing.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\RegisteringOk.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\accessout.png">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="Obrazy\*.gif">
+      <Filter>Pliki zasobów</Filter>
+    </None>
     <None Include="Obrazy\*.gif">
       <Filter>Pliki zasobów</Filter>
     </None>
@@ -117,23 +147,10 @@
     <None Include="Obrazy\*.gif">
       <Filter>Pliki zasobów</Filter>
     </None>
-    <None Include=".gitignore" />
-    <None Include="Obrazy\*.png">
+    <None Include="Obrazy\complete.gif">
       <Filter>Pliki zasobów</Filter>
     </None>
-    <None Include="Obrazy\*.gif">
-      <Filter>Pliki zasobów</Filter>
-    </None>
-    <None Include="Obrazy\*.gif">
-      <Filter>Pliki zasobów</Filter>
-    </None>
-    <None Include="Obrazy\*.gif">
-      <Filter>Pliki zasobów</Filter>
-    </None>
-    <None Include="Obrazy\*.gif">
-      <Filter>Pliki zasobów</Filter>
-    </None>
-    <None Include="Obrazy\*.gif">
+    <None Include="Obrazy\accessgranted.png">
       <Filter>Pliki zasobów</Filter>
     </None>
   </ItemGroup>
@@ -146,14 +163,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Logowanie.resx">
-      <Filter>Pliki zasobów</Filter>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Obrazy\*.gif">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
     <Image Include="Obrazy\complete2.gif">
       <Filter>Pliki zasobów</Filter>
     </Image>
@@ -169,11 +178,13 @@
     <Image Include="Obrazy\RegisteringOk.gif">
       <Filter>Pliki zasobów</Filter>
     </Image>
-    <Image Include="Obrazy\*.png">
-      <Filter>Pliki zasobów</Filter>
-    </Image>
     <Image Include="Obrazy\accessout.png">
       <Filter>Pliki zasobów</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Logowanie.resx">
+      <Filter>Pliki nagłówkowe</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -147,6 +147,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Logowanie.resx">
+			<DependentUpon>Logowanie.h</DependentUpon>
 			<SubType>Designer</SubType>
 			<LogicalName>RejestracjaBankowa.Logowanie.Logowanie.resources</LogicalName>
 		</EmbeddedResource>
