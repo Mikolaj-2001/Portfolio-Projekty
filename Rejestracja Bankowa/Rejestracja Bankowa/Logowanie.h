@@ -33,7 +33,7 @@ namespace RejestracjaBankowa {
 				id = emittedId2;
 
 				processTimer = gcnew System::Windows::Forms::Timer();
-				processTimer->Interval = 3000; // Ustaw interwa³ na 3 sekundy
+				processTimer->Interval = 5000; // Ustaw interwa³ na 3 sekundy
 				processTimer->Tick += gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick);
 			}
 
@@ -142,18 +142,18 @@ namespace RejestracjaBankowa {
 				// 
 				// Personaltxt
 				// 
-				this->Personaltxt->Location = System::Drawing::Point(167, 132);
+				this->Personaltxt->Location = System::Drawing::Point(169, 132);
 				this->Personaltxt->Mask = L"00-000-000-000";
 				this->Personaltxt->Name = L"Personaltxt";
-				this->Personaltxt->Size = System::Drawing::Size(125, 25);
+				this->Personaltxt->Size = System::Drawing::Size(123, 25);
 				this->Personaltxt->TabIndex = 15;
 				// 
 				// IDtxt
 				// 
-				this->IDtxt->Location = System::Drawing::Point(167, 101);
+				this->IDtxt->Location = System::Drawing::Point(181, 101);
 				this->IDtxt->Mask = L"000-000-000";
 				this->IDtxt->Name = L"IDtxt";
-				this->IDtxt->Size = System::Drawing::Size(125, 25);
+				this->IDtxt->Size = System::Drawing::Size(111, 25);
 				this->IDtxt->TabIndex = 14;
 				// 
 				// regRedirect
@@ -215,7 +215,7 @@ namespace RejestracjaBankowa {
 				// label4
 				// 
 				this->label4->AutoSize = true;
-				this->label4->Location = System::Drawing::Point(117, 132);
+				this->label4->Location = System::Drawing::Point(111, 135);
 				this->label4->Name = L"label4";
 				this->label4->Size = System::Drawing::Size(52, 19);
 				this->label4->TabIndex = 5;
@@ -384,6 +384,10 @@ namespace RejestracjaBankowa {
 				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 				this->access->Image = this->accessDeniedImg != nullptr
 					? this->accessDeniedImg : LoadImageFromObrazy("accessout.png");
+				this->access->Visible = true;
+				this->access->Refresh();
+				System::Threading::Thread::Sleep(5000);
+				Application::DoEvents();
 				return;
 			}
 			else {
@@ -508,10 +512,15 @@ namespace RejestracjaBankowa {
 				}
 
 				process->Visible = true;
-				this->process->Image = this->processFullGif;// Ustawienie statycznego obrazu po zakoñczeniu przetwarzania
-				if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
-				this->process->Image = this->processFullGif != nullptr
-					? this->processFullGif : LoadImageFromObrazy("processfull.gif");
+				System::Drawing::Image^ processFull = this->processFullGif != nullptr
+					? this->processFullGif
+					: LoadImageFromObrazy("processfull.gif");
+
+				if (processFull != nullptr) {
+					this->process->Image = processFull; // ustaw obraz
+					System::Drawing::ImageAnimator::Animate(processFull, gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick));
+					//Dodaj to do innych miejsc w przypadku obrazów typu Gif w drugiej kolejnoœci
+				}
 
 				OdbcCommand^ command2 = gcnew OdbcCommand("Select Nr_id_klienta from `D_klienta`", connection);
 				OdbcDataReader^ reader = nullptr;//inicjalizacja czytnika danych jako nullptr,aby unikn¹æ b³êdów w bloku finally
@@ -526,10 +535,14 @@ namespace RejestracjaBankowa {
 					if (this->accessGrantedFlag >= 0) {
 						reader = command2->ExecuteReader();
 						if (reader->Read()) {
+							this->access->Visible = true;
+							this->access->Refresh();
+							System::Threading::Thread::Sleep(5000);// OpóŸnienie 2 sekundy,aby u¿ytkownik móg³ zobaczyæ obraz dostêpu przyznanego
+							Application::DoEvents(); // Przetwarzanie wszystkich oczekuj¹cych komunikatów,aby UI móg³ siê odœwie¿yæ przed przejœciem do nastêpnego formularza
 							int id_u¿ytkownika = reader->GetInt32(0);
 							reader->Close();
 							this->Hide();
-							
+							Nawigacja::otwórzG³ównyFormularz(this, id_u¿ytkownika);
 						}
 					}
 				}
@@ -558,9 +571,6 @@ namespace RejestracjaBankowa {
 			CzyszczeniePól();
 			connection->Close();
 		};
-
-
-
 		public:
 			String^ konfiguracja = L"Driver={MySQL ODBC 9.4 Unicode Driver};Server=localhost;Database=rejestracja_bankowa;port=3306;user=root;Password=09041976Polska04@;CharSet=utf8mb4;Option=3";
 

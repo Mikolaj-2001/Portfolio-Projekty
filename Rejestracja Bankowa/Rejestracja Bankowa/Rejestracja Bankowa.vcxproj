@@ -154,7 +154,7 @@
 		<EmbeddedResource Include="Rejestracja.resx">
 			<DependentUpon>Rejestracja.h</DependentUpon>
 			<SubType>Designer</SubType>
-			<LogicalName>RejestracjaBankowa.Rejestracja.Rejestracja.resources</LogicalName>
+			<LogicalName>RejestracjaBankowa.Rejestracja.resources</LogicalName>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Rejestracja1.resx">
 			<DependentUpon>Rejestracja1.h</DependentUpon>

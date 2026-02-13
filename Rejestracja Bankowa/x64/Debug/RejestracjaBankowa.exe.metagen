@@ -1,5 +1,5 @@
   RejestracjaBankowa.Logowanie.Logowanie.resources - Embedded, ContainedInManifestFile, 
-  RejestracjaBankowa.Rejestracja.Rejestracja.resources - Embedded, ContainedInManifestFile, 
+  RejestracjaBankowa.Rejestracja.resources - Embedded, ContainedInManifestFile, 
   RejestracjaBankowa.Rejestracja1.Rejestracja1.resources - Embedded, ContainedInManifestFile, 
 ImageRuntimeVersion: v4.0.30319
 Assembly RejestracjaBankowa, Version=0.0.*, Culture=Język niezmienny (kraj niezmienny): 
@@ -56,6 +56,7 @@ Class RejestracjaBankowa.Rejestracja+DownLoadingStructure`1[T]: AutoLayout, Ansi
     dataFoldering(String): PrivateScope, Public, HideBySig
 Class RejestracjaBankowa.Nawigacja: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
   Methods:
+    otwórzGłównyFormularz(Form, Int32): PrivateScope, Public, Static, HideBySig
     otwórzLogowanie(Form, Int32): PrivateScope, Public, Static, HideBySig
     otwórzRejestracje(Form): PrivateScope, Public, Static, HideBySig
 Class RejestracjaBankowa.Rejestracja1.Rejestracja1: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
