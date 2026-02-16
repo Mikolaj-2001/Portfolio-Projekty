@@ -33,7 +33,7 @@ namespace RejestracjaBankowa {
 				id = emittedId2;
 
 				processTimer = gcnew System::Windows::Forms::Timer();
-				processTimer->Interval = 5000; // Ustaw interwa³ na 3 sekundy
+				processTimer->Interval = 4000; // Ustaw interwa³ na 4 sekundy
 				processTimer->Tick += gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick);
 			}
 
@@ -158,7 +158,7 @@ namespace RejestracjaBankowa {
 				// 
 				// regRedirect
 				// 
-				this->regRedirect->Location = System::Drawing::Point(167, 331);
+				this->regRedirect->Location = System::Drawing::Point(158, 331);
 				this->regRedirect->Name = L"regRedirect";
 				this->regRedirect->Size = System::Drawing::Size(120, 29);
 				this->regRedirect->TabIndex = 13;
@@ -171,7 +171,7 @@ namespace RejestracjaBankowa {
 				this->label5->AutoSize = true;
 				this->label5->Font = (gcnew System::Drawing::Font(L"Noto Serif", 7.8F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 					System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
-				this->label5->Location = System::Drawing::Point(91, 309);
+				this->label5->Location = System::Drawing::Point(82, 309);
 				this->label5->Name = L"label5";
 				this->label5->Size = System::Drawing::Size(196, 19);
 				this->label5->TabIndex = 12;
@@ -189,16 +189,16 @@ namespace RejestracjaBankowa {
 				// 
 				// Passwordtxt
 				// 
-				this->Passwordtxt->Location = System::Drawing::Point(145, 69);
+				this->Passwordtxt->Location = System::Drawing::Point(158, 69);
 				this->Passwordtxt->Name = L"Passwordtxt";
-				this->Passwordtxt->Size = System::Drawing::Size(147, 25);
+				this->Passwordtxt->Size = System::Drawing::Size(134, 25);
 				this->Passwordtxt->TabIndex = 8;
 				// 
 				// Usertxt
 				// 
-				this->Usertxt->Location = System::Drawing::Point(145, 35);
+				this->Usertxt->Location = System::Drawing::Point(158, 35);
 				this->Usertxt->Name = L"Usertxt";
-				this->Usertxt->Size = System::Drawing::Size(147, 25);
+				this->Usertxt->Size = System::Drawing::Size(134, 25);
 				this->Usertxt->TabIndex = 7;
 				// 
 				// access
@@ -233,7 +233,7 @@ namespace RejestracjaBankowa {
 				// label2
 				// 
 				this->label2->AutoSize = true;
-				this->label2->Location = System::Drawing::Point(91, 72);
+				this->label2->Location = System::Drawing::Point(97, 72);
 				this->label2->Name = L"label2";
 				this->label2->Size = System::Drawing::Size(48, 19);
 				this->label2->TabIndex = 3;
@@ -242,7 +242,7 @@ namespace RejestracjaBankowa {
 				// label1
 				// 
 				this->label1->AutoSize = true;
-				this->label1->Location = System::Drawing::Point(0, 38);
+				this->label1->Location = System::Drawing::Point(6, 38);
 				this->label1->Name = L"label1";
 				this->label1->Size = System::Drawing::Size(139, 19);
 				this->label1->TabIndex = 2;
@@ -386,7 +386,7 @@ namespace RejestracjaBankowa {
 					? this->accessDeniedImg : LoadImageFromObrazy("accessout.png");
 				this->access->Visible = true;
 				this->access->Refresh();
-				System::Threading::Thread::Sleep(5000);
+				System::Threading::Thread::Sleep(4000);
 				Application::DoEvents();
 				return;
 			}
@@ -441,10 +441,12 @@ namespace RejestracjaBankowa {
 						}
 					}
 					process->Visible = true;
+					this->process->Refresh();
 					this->process->Image = this->processingGif;
-					if (this->process->Image != nullptr) { delete this->process->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 					this->process->Image = this->processingGif != nullptr
 						? this->processingGif : LoadImageFromObrazy("Processing.gif");
+					System::Threading::Thread::Sleep(4000);
+					Application::DoEvents();
 
 					// Przetwarzanie wierszy w DataAuth,tak aby ustawiæ odpowiednie pola w DataRecognising
 					for (int g = 0; g < DataAuth->Rows->Count; g++) {
@@ -512,14 +514,16 @@ namespace RejestracjaBankowa {
 				}
 
 				process->Visible = true;
+				this->process->Refresh();
 				System::Drawing::Image^ processFull = this->processFullGif != nullptr
 					? this->processFullGif
 					: LoadImageFromObrazy("processfull.gif");
 
 				if (processFull != nullptr) {
 					this->process->Image = processFull; // ustaw obraz
-					System::Drawing::ImageAnimator::Animate(processFull, gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick));
-					//Dodaj to do innych miejsc w przypadku obrazów typu Gif w drugiej kolejnoœci
+					System::Drawing::ImageAnimator::Animate(processFull, gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick));//tutaj ponownie animujemy,aby mieæ pewnoœæ,¿e animacja zacznie siê od pocz¹tku po zmianie obrazu
+					System::Threading::Thread::Sleep(4000);
+					Application::DoEvents();
 				}
 
 				OdbcCommand^ command2 = gcnew OdbcCommand("Select Nr_id_klienta from `D_klienta`", connection);
@@ -528,7 +532,6 @@ namespace RejestracjaBankowa {
 				try {
 					this->accessGrantedFlag = true;
 					this->access->Image = this->accessGrantedImg;
-					if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 					this->access->Image = this->accessGrantedImg != nullptr
 						? this->accessGrantedImg : LoadImageFromObrazy("accessgranted.png");
 
@@ -536,8 +539,8 @@ namespace RejestracjaBankowa {
 						reader = command2->ExecuteReader();
 						if (reader->Read()) {
 							this->access->Visible = true;
-							this->access->Refresh();
-							System::Threading::Thread::Sleep(5000);// OpóŸnienie 2 sekundy,aby u¿ytkownik móg³ zobaczyæ obraz dostêpu przyznanego
+							this->access->Refresh();// Odœwie¿enie PictureBox,aby natychmiast pokazaæ obraz dostêpu przyznanego
+							System::Threading::Thread::Sleep(4000);// OpóŸnienie 4 sekundy,aby u¿ytkownik móg³ zobaczyæ obraz dostêpu przyznanego
 							Application::DoEvents(); // Przetwarzanie wszystkich oczekuj¹cych komunikatów,aby UI móg³ siê odœwie¿yæ przed przejœciem do nastêpnego formularza
 							int id_u¿ytkownika = reader->GetInt32(0);
 							reader->Close();
@@ -560,10 +563,13 @@ namespace RejestracjaBankowa {
 			}
 			if (process) {
 				access->Visible = true;
+				this->access->Refresh();
 				this->access->Image = this->accessGrantedImg;
 				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 				this->access->Image = this->accessGrantedImg != nullptr
 					? this->accessGrantedImg : LoadImageFromObrazy("accessgranted.png");
+				System::Threading::Thread::Sleep(4000);
+				Application::DoEvents();
 			}
 			if (this->processTimer != nullptr && this->processTimer->Enabled) {
 				this->processTimer->Start();
