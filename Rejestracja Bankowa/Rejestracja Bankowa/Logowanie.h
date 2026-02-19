@@ -542,7 +542,7 @@ namespace RejestracjaBankowa {
 							this->access->Refresh();// Odœwie¿enie PictureBox,aby natychmiast pokazaæ obraz dostêpu przyznanego
 							System::Threading::Thread::Sleep(4000);// OpóŸnienie 4 sekundy,aby u¿ytkownik móg³ zobaczyæ obraz dostêpu przyznanego
 							Application::DoEvents(); // Przetwarzanie wszystkich oczekuj¹cych komunikatów,aby UI móg³ siê odœwie¿yæ przed przejœciem do nastêpnego formularza
-							int colUser = reader->GetOrdinal("Nr_id_klienta");
+							int colUser = reader->GetOrdinal("`Nr_id_klienta`");
 							int id_u¿ytkownika = reader->IsDBNull(colUser) ? -1 : reader->GetInt32(colUser);
 							reader->Close();
 							this->Hide();
