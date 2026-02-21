@@ -372,7 +372,7 @@ namespace RejestracjaBankowa {
 			for (int existingChar = 0; existingChar < pola->Length; ++existingChar) {
 				String^ value = pola[existingChar]->Trim();
 				if (value->Length == 0) continue;// Pomijaj puste pola
-				if (!System::Text::RegularExpressions::Regex::IsMatch(pola[existingChar], "^[\\p{L}0-9\\-]+$")) {
+				if (!System::Text::RegularExpressions::Regex::IsMatch(value, "^[\\p{L}0-9\\-]+$")) {
 					MessageBox::Show("Dane zawieraj¹ niedozwolone znaki.", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
 					DataAuth->Enabled = false;
 					return;
@@ -542,7 +542,7 @@ namespace RejestracjaBankowa {
 							this->access->Refresh();// Odœwie¿enie PictureBox,aby natychmiast pokazaæ obraz dostêpu przyznanego
 							System::Threading::Thread::Sleep(4000);// OpóŸnienie 4 sekundy,aby u¿ytkownik móg³ zobaczyæ obraz dostêpu przyznanego
 							Application::DoEvents(); // Przetwarzanie wszystkich oczekuj¹cych komunikatów,aby UI móg³ siê odœwie¿yæ przed przejœciem do nastêpnego formularza
-							int colUser = reader->GetOrdinal("`Nr_id_klienta`");
+							int colUser = reader->GetOrdinal("Nr_id_klienta");
 							int id_u¿ytkownika = reader->IsDBNull(colUser) ? -1 : reader->GetInt32(colUser);
 							reader->Close();
 							this->Hide();
