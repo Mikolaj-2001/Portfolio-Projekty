@@ -363,12 +363,12 @@ namespace RejestracjaBankowa {
 			String^ has³o1 = Regex::Replace(has³o, "[^0-9]", "");
 
 			String^ ID = IDtxt->Text->Trim();
-			String^ ID1 = Regex::Replace(ID, "[^0-9]", "");
+			Object^ ID1 = Regex::Replace(ID, "[^0-9]", "");
 
 			String^ PESEL = Personaltxt->Text->Trim();
 			String^ PESEL1 = Regex::Replace(PESEL, "[^0-9]", "");
 
-			array< String^ >^ pola = { u¿ytkownik, has³o1, ID1, PESEL1 };
+			array< String^ >^ pola = { u¿ytkownik, has³o1, safe_cast<String^>(ID1), PESEL1 };
 			for (int existingChar = 0; existingChar < pola->Length; ++existingChar) {
 				String^ value = pola[existingChar]->Trim();
 				if (value->Length == 0) continue;// Pomijaj puste pola
@@ -378,7 +378,7 @@ namespace RejestracjaBankowa {
 					return;
 				}
 			};
-			if (u¿ytkownik->Length < 3 || has³o1->Length < 12 || ID1->Length < 9 || PESEL1->Length < 11) {
+			if (u¿ytkownik->Length < 3 || has³o1->Length < 12 || safe_cast<String^>(ID1)->Length < 9 || PESEL1->Length < 11) {
 				MessageBox::Show("Dane s¹ niepe³ne lub nie zosta³y wpisane", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				this->access->Image = this->accessDeniedImg;
 				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
@@ -413,7 +413,9 @@ namespace RejestracjaBankowa {
 				command->Parameters->Clear();
 				command->Parameters->AddWithValue("p1", u¿ytkownik);
 				command->Parameters->AddWithValue("p2", has³o1);
-				command->Parameters->AddWithValue("p3", ID1);
+				OdbcParameter^ IdParameter = gcnew OdbcParameter("p3", OdbcType::BigInt);
+				IdParameter->Value = Convert::ToInt64(ID1);
+				command->Parameters->Add(IdParameter);
 				command->Parameters->AddWithValue("p4", PESEL1);
 
 				OdbcDataAdapter^ dane = gcnew OdbcDataAdapter(command);
@@ -428,12 +430,12 @@ namespace RejestracjaBankowa {
 					DataAuth->Visible = true;
 
 					// Pobierz id u¿ytkownika z pierwszego wiersza (kolumna 2 zgodnie z SELECT)
-					int id_u¿ytkownika = 0;
+					long long id_u¿ytkownika = 0;
 					try {
 						Object^ idObj = (safe_cast<DataRow^>(tabela->Rows[0]))[2];//Rzzutowanie na DataRow i pobranie wartoœci kolumny 2
-						if (idObj != nullptr) id_u¿ytkownika = Convert::ToInt32(idObj);
+						if (idObj != nullptr) id_u¿ytkownika = Convert::ToInt64(idObj);
 					}
-					catch (...) {}// Obs³uga b³êdów konwersji lub rzutowania
+					catch (...) {}// Obs³uga b³êdów konwersji lub rzutowania,czyli brak danych lub nieprawid³owy format danych
 
 					if (DataRecognising != nullptr) {
 						for (int previous = 0; previous < DataRecognising->Items->Count; previous++) {
@@ -460,14 +462,22 @@ namespace RejestracjaBankowa {
 						if (dataExistence) {
 							DataRecognising->SetItemChecked(0, true);
 						}
+						else {
+							MessageBox::Show("Niektóre dane s¹ puste lub null,co mo¿e œwiadczyæ o ich nieistnieniu w bazie danych.", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
+							throw;
+						}
 
 						bool dataRelevance =
 							loginObj != nullptr && loginObj->ToString() == u¿ytkownik &&
 							passwordObj != nullptr && passwordObj->ToString() == has³o1 &&
-							idObj != nullptr && idObj->ToString() == ID1 &&
+							idObj != nullptr && Convert::ToInt64(idObj) == Convert::ToInt64(ID1) &&
 							personalObj != nullptr && personalObj->ToString() == PESEL1;
 						if (dataRelevance) {
 							DataRecognising->SetItemChecked(1, true);
+						}
+						else {
+							MessageBox::Show("Niektóre dane nie s¹ zgodne z wprowadzonymi danymi,co mo¿e œwiadczyæ o ich niezgodnoœci z danymi w bazie danych.", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
+							throw;
 						}
 
 						bool dataCorrectness =
@@ -478,8 +488,16 @@ namespace RejestracjaBankowa {
 						if (dataCorrectness) {
 							DataRecognising->SetItemChecked(2, true);
 						}
+						else {
+							MessageBox::Show("Niektóre dane s¹ puste lub null,co mo¿e œwiadczyæ o ich niepoprawnoœci w bazie danych.", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
+							throw;
+						}
 						if (idObj != nullptr && idObj->ToString() != "") {
 							DataRecognising->SetItemChecked(3, true);
+						}
+						else {
+							MessageBox::Show("Id u¿ytkownika jest puste lub null,co mo¿e œwiadczyæ o braku rozpoznania danych w bazie danych.", "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
+							throw;
 						}
 					}
 				}
@@ -542,8 +560,8 @@ namespace RejestracjaBankowa {
 							this->access->Refresh();// Odœwie¿enie PictureBox,aby natychmiast pokazaæ obraz dostêpu przyznanego
 							System::Threading::Thread::Sleep(4000);// OpóŸnienie 4 sekundy,aby u¿ytkownik móg³ zobaczyæ obraz dostêpu przyznanego
 							Application::DoEvents(); // Przetwarzanie wszystkich oczekuj¹cych komunikatów,aby UI móg³ siê odœwie¿yæ przed przejœciem do nastêpnego formularza
-							int colUser = reader->GetOrdinal("Nr_id_klienta");
-							int id_u¿ytkownika = reader->IsDBNull(colUser) ? -1 : reader->GetInt32(colUser);
+							long long colUser = reader->GetOrdinal("Nr_id_klienta");
+							long long id_u¿ytkownika = reader->IsDBNull(colUser) ? -1 : reader->GetInt64(colUser);
 							reader->Close();
 							this->Hide();
 							Nawigacja::otwórzG³ównyFormularz(this, id_u¿ytkownika);
@@ -561,6 +579,7 @@ namespace RejestracjaBankowa {
 			}
 			catch (Exception^ komunikat) {
 				MessageBox::Show("B³¹d podczas po³¹czenia z baz¹" + komunikat->Message);
+				throw;
 			}
 			if (process) {
 				access->Visible = true;
