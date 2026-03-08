@@ -414,7 +414,7 @@ namespace RejestracjaBankowa {
 				command->Parameters->AddWithValue("p1", u¿ytkownik);
 				command->Parameters->AddWithValue("p2", has³o1);
 				OdbcParameter^ IdParameter = gcnew OdbcParameter("p3", OdbcType::BigInt);
-				IdParameter->Value = Convert::ToInt64(ID1);
+				IdParameter->Value = static_cast<long long>(Convert::ToInt64(ID1));
 				command->Parameters->Add(IdParameter);
 				command->Parameters->AddWithValue("p4", PESEL1);
 
@@ -432,8 +432,8 @@ namespace RejestracjaBankowa {
 					// Pobierz id u¿ytkownika z pierwszego wiersza (kolumna 2 zgodnie z SELECT)
 					long long id_u¿ytkownika = 0;
 					try {
-						Object^ idObj = (safe_cast<DataRow^>(tabela->Rows[0]))[2];//Rzzutowanie na DataRow i pobranie wartoœci kolumny 2
-						if (idObj != nullptr) id_u¿ytkownika = Convert::ToInt64(idObj);
+						Object^ idObj = (static_cast<DataRow^>(tabela->Rows[0]))[2];// Pobierz wartoœæ z kolumny 2 (Nr_id_klienta),rzutowanie statyczne sprawia,¿e zak³adamy, ¿e tabela ma odpowiedni¹ strukturê i kolumna 2 zawiera dane typu,który mo¿na przekonwertowaæ na long long. Jeœli struktura tabeli jest inna lub dane s¹ nieprawid³owe,mo¿e to spowodowaæ wyj¹tek.
+						if (idObj != nullptr) id_u¿ytkownika = static_cast<long long>(Convert::ToInt64(idObj));
 					}
 					catch (...) {}// Obs³uga b³êdów konwersji lub rzutowania,czyli brak danych lub nieprawid³owy format danych
 
@@ -553,15 +553,15 @@ namespace RejestracjaBankowa {
 					this->access->Image = this->accessGrantedImg != nullptr
 						? this->accessGrantedImg : LoadImageFromObrazy("accessgranted.png");
 
-					if (this->accessGrantedFlag >= 0) {
+					if (this->accessGrantedFlag) {
 						reader = command2->ExecuteReader();
 						if (reader->Read()) {
 							this->access->Visible = true;
 							this->access->Refresh();// Odœwie¿enie PictureBox,aby natychmiast pokazaæ obraz dostêpu przyznanego
 							System::Threading::Thread::Sleep(4000);// OpóŸnienie 4 sekundy,aby u¿ytkownik móg³ zobaczyæ obraz dostêpu przyznanego
 							Application::DoEvents(); // Przetwarzanie wszystkich oczekuj¹cych komunikatów,aby UI móg³ siê odœwie¿yæ przed przejœciem do nastêpnego formularza
-							long long colUser = reader->GetOrdinal("Nr_id_klienta");
-							long long id_u¿ytkownika = reader->IsDBNull(colUser) ? -1 : reader->GetInt64(colUser);
+							long long colUser = static_cast<long long>(reader->GetOrdinal("Nr_id_klienta"));
+							long long id_u¿ytkownika = reader->IsDBNull(colUser) ? -1 : static_cast<long long>(reader->GetInt64(colUser));
 							reader->Close();
 							this->Hide();
 							Nawigacja::otwórzG³ównyFormularz(this, id_u¿ytkownika);
@@ -598,7 +598,7 @@ namespace RejestracjaBankowa {
 			connection->Close();
 		};
 		public:
-			String^ konfiguracja = L"Driver={MySQL ODBC 9.4 Unicode Driver};Server=localhost;Database=rejestracja_bankowa;port=3306;user=root;Password=09041976Polska04@;CharSet=utf8mb4;Option=3";
+			String^ konfiguracja = L"Driver={MySQL ODBC 9.4 Unicode Driver};Server=localhost;Database=rejestracja_bankowa;port=3306;user=root;Password=09041976Polska04@;CharSet=utf8mb4;Option=3;AllowMultiQueries=1";
 
 		private: System::Void regRedirect_Click(System::Object^ sender, System::EventArgs^ e);
 		};
