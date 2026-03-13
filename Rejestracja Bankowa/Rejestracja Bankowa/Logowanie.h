@@ -402,13 +402,13 @@ namespace RejestracjaBankowa {
 				command->Connection = connection;
 				command->Transaction = transakcja;
 
-				command->CommandText = "SELECT d.`Rejes_Login_u篡t`, d.`Rejes_Has這`, d.`Nr_id_klienta`, d.`Rejes_PESEL` "
+				command->CommandText = "SELECT d.`Rejes_Login_u篡t` , d.`Rejes_Has這` , d.`Nr_id_klienta` , d.`Rejes_PESEL` "
 					"FROM `D_klienta` AS d "
 					"JOIN `Rejes` AS r ON "
 					"    r.`Login_u篡t` = d.`Rejes_Login_u篡t` "
 					"AND r.`Has這`      = d.`Rejes_Has這` "
 					"AND r.`PESEL`      = d.`Rejes_PESEL` "
-					"WHERE r.`Login_u篡t` = ? AND r.`Has這` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
+                   "WHERE r.`Login_u篡t` = ? AND r.`Has這` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
 
 				command->Parameters->Clear();
 				command->Parameters->AddWithValue("p1", u篡tkownik);
@@ -506,13 +506,14 @@ namespace RejestracjaBankowa {
 					DataAuth->Visible = false;
 				}
 				if (input1 > 0 && DataAuth->Visible == true) {
-					command->CommandText = "INSERT INTO `Uwierzytelnienie` (`D_klienta_Nr_id_klienta`, `D_klienta_Rejes_Imi獫, `D_klienta_Rejes_Nazwisko`, `D_klienta_Rejes_PESEL`, `D_klienta_Rejes_Has這`, `D_klienta_Rejes_Login_u篡t`) "
-						"SELECT d.`Nr_id_klienta`, r.`Imi獫, r.`Nazwisko`, r.`PESEL`, r.`Has這`, r.`Login_u篡t` "
+                   command->Parameters->Clear();
+					command->CommandText = "INSERT INTO `Uwierzytelnienie` (`D_klienta_Nr_id_klienta` , `D_klienta_Rejes_Imi獫 , `D_klienta_Rejes_Nazwisko` , `D_klienta_Rejes_PESEL` , `D_klienta_Rejes_Has這` , `D_klienta_Rejes_Login_u篡t`) "
+                     "SELECT d.`Nr_id_klienta` , r.`Imi獫 , r.`Nazwisko` , r.`PESEL` , r.`Has這` , r.`Login_u篡t` "
 						"FROM `D_klienta` AS d "
 						"JOIN `Rejes` AS r ON "
-						"    r.`Login_u篡t` = d.`Rejes_Login_u篡t` "
-						"AND r.`Has這`      = d.`Rejes_Has這` "
-						"AND r.`PESEL`      = d.`Rejes_PESEL` "
+						"r.`Login_u篡t` = d.`Rejes_Login_u篡t` "
+						"AND r.`Has這` = d.`Rejes_Has這` "	
+						"AND r.`PESEL` = d.`Rejes_PESEL` "
 						"WHERE r.`PESEL` IS NOT NULL;";
 
 					int input2 = command->ExecuteNonQuery();
