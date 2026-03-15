@@ -402,13 +402,13 @@ namespace RejestracjaBankowa {
 				command->Connection = connection;
 				command->Transaction = transakcja;
 
-				command->CommandText = "SELECT d.`Rejes_Login_u¿yt` , d.`Rejes_Has³o` , d.`Nr_id_klienta` , d.`Rejes_PESEL` "
-					"FROM `D_klienta` AS d "
+				command->CommandText = "SELECT dk.`Rejes_Login_u¿yt` , dk.`Rejes_Has³o` , dk.`Nr_id_klienta` , dk.`Rejes_PESEL` "
+					"FROM `D_klienta` AS dk "
 					"JOIN `Rejes` AS r ON "
-					"    r.`Login_u¿yt` = d.`Rejes_Login_u¿yt` "
-					"AND r.`Has³o`      = d.`Rejes_Has³o` "
-					"AND r.`PESEL`      = d.`Rejes_PESEL` "
-                   "WHERE r.`Login_u¿yt` = ? AND r.`Has³o` = ? AND d.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
+					"r.`Login_u¿yt` = dk.`Rejes_Login_u¿yt` "
+					"AND r.`Has³o`  = dk.`Rejes_Has³o` "
+					"AND r.`PESEL`  = dk.`Rejes_PESEL` "
+                   "WHERE r.`Login_u¿yt` = ? AND r.`Has³o` = ? AND dk.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
 
 				command->Parameters->Clear();
 				command->Parameters->AddWithValue("p1", u¿ytkownik);
@@ -422,9 +422,8 @@ namespace RejestracjaBankowa {
 				DataTable^ tabela = gcnew DataTable();
 				dane->Fill(tabela);
 
-				int input1 = tabela->Rows->Count;
+				int input1 = tabela->Rows->Count;// Sprawdzenie liczby wierszy zwróconych przez zapytanie,co pozwala oceniæ, czy dane uwierzytelniaj¹ce s¹ poprawne i istniej¹ w bazie danych
 
-				// Wype³nij widok danych i wykonaj walidacje na istniej¹cych wierszach
 				if (input1 > 0) {
 					DataAuth->DataSource = tabela;
 					DataAuth->Visible = true;
