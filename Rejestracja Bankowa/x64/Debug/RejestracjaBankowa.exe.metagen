@@ -45,6 +45,53 @@ Class RejestracjaBankowa.Rejestracja: AutoLayout, AnsiClass, Class, Public, Befo
     ŁadowanieBazyEdit(): PrivateScope, Public, HideBySig
     creditConfirming(): PrivateScope, Public, HideBySig
     loanConfirming(): PrivateScope, Public, HideBySig
+Struct RejestracjaBankowa.Rejestracja+typyTransakcji: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    typyTransakcji Przelew_krajowy = 0 : Public, Static, Literal, HasDefault
+    typyTransakcji Przelew_międzynarodowy = 1 : Public, Static, Literal, HasDefault
+    typyTransakcji Przelew_mobilny = 2 : Public, Static, Literal, HasDefault
+    typyTransakcji Przelew_własny = 3 : Public, Static, Literal, HasDefault
+    typyTransakcji Zlecenie_stałe = 4 : Public, Static, Literal, HasDefault
+    typyTransakcji Zlecenie_nieregularne = 5 : Public, Static, Literal, HasDefault
+Struct RejestracjaBankowa.Rejestracja+typyKredytów: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    typyKredytów Kredyt_oprocentowany_RRSO_1_24 = 0 : Public, Static, Literal, HasDefault
+    typyKredytów Kredyt_hipoteczny = 1 : Public, Static, Literal, HasDefault
+    typyKredytów Kredyt_konsolidacyjny = 2 : Public, Static, Literal, HasDefault
+    typyKredytów Kredyt_gotówkowy = 3 : Public, Static, Literal, HasDefault
+    typyKredytów Kredyt_na_przedsiębiorstwo = 4 : Public, Static, Literal, HasDefault
+Struct RejestracjaBankowa.Rejestracja+typyOkresuKredytu: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    typyOkresuKredytu Na_okres_2_lat = 0 : Public, Static, Literal, HasDefault
+    typyOkresuKredytu Na_okres_5_lat = 1 : Public, Static, Literal, HasDefault
+    typyOkresuKredytu Na_okres_8_lat = 2 : Public, Static, Literal, HasDefault
+    typyOkresuKredytu Na_okres_10_lat = 3 : Public, Static, Literal, HasDefault
+    typyOkresuKredytu Na_okres_20_lat = 4 : Public, Static, Literal, HasDefault
+    typyOkresuKredytu Na_okres_40_lat = 5 : Public, Static, Literal, HasDefault
+Struct RejestracjaBankowa.Rejestracja+typyPożyczek: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    typyPożyczek Chwilówka = 0 : Public, Static, Literal, HasDefault
+    typyPożyczek Szybka_pożyczka = 1 : Public, Static, Literal, HasDefault
+    typyPożyczek Pożyczka_bez_świadczeń = 2 : Public, Static, Literal, HasDefault
+    typyPożyczek Pożyczka_oproentowana_RRSO_2_procent = 3 : Public, Static, Literal, HasDefault
+    typyPożyczek Pożyczka_zastawcza = 4 : Public, Static, Literal, HasDefault
+Struct RejestracjaBankowa.Rejestracja+typOkresuPożyczki: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    typOkresuPożyczki Na_okres_1_dnia = 0 : Public, Static, Literal, HasDefault
+    typOkresuPożyczki Na_okres_1_tygodnia = 1 : Public, Static, Literal, HasDefault
+    typOkresuPożyczki Na_okres_1_miesiąca = 2 : Public, Static, Literal, HasDefault
+    typOkresuPożyczki Na_okres_2_miesięcy = 3 : Public, Static, Literal, HasDefault
+    typOkresuPożyczki Na_okres_3_miesięcy = 4 : Public, Static, Literal, HasDefault
 Class RejestracjaBankowa.Rejestracja+DownLoadingStructure`1[T]: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
   Type parameter: T
     Void .ctor(T): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
