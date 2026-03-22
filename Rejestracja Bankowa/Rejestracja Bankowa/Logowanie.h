@@ -408,7 +408,7 @@ namespace RejestracjaBankowa {
 					"r.`Login_u¿yt` = dk.`Rejes_Login_u¿yt` "
 					"AND r.`Has³o`  = dk.`Rejes_Has³o` "
 					"AND r.`PESEL`  = dk.`Rejes_PESEL` "
-                   "WHERE r.`Login_u¿yt` = ? AND r.`Has³o` = ? AND dk.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
+					"WHERE r.`Login_u¿yt` = ? AND r.`Has³o` = ? AND dk.`Nr_id_klienta` = ? AND r.`PESEL` = ?";
 
 				command->Parameters->Clear();
 				command->Parameters->AddWithValue("p1", u¿ytkownik);
@@ -505,13 +505,13 @@ namespace RejestracjaBankowa {
 					DataAuth->Visible = false;
 				}
 				if (input1 > 0 && DataAuth->Visible == true) {
-                   command->Parameters->Clear();
+					command->Parameters->Clear();
 					command->CommandText = "INSERT INTO `Uwierzytelnienie` (`D_klienta_Nr_id_klienta` , `D_klienta_Rejes_Imiê` , `D_klienta_Rejes_Nazwisko` , `D_klienta_Rejes_PESEL` , `D_klienta_Rejes_Has³o` , `D_klienta_Rejes_Login_u¿yt`) "
-                     "SELECT d.`Nr_id_klienta` , r.`Imiê` , r.`Nazwisko` , r.`PESEL` , r.`Has³o` , r.`Login_u¿yt` "
+						"SELECT d.`Nr_id_klienta` , r.`Imiê` , r.`Nazwisko` , r.`PESEL` , r.`Has³o` , r.`Login_u¿yt` "
 						"FROM `D_klienta` AS d "
 						"JOIN `Rejes` AS r ON "
 						"r.`Login_u¿yt` = d.`Rejes_Login_u¿yt` "
-						"AND r.`Has³o` = d.`Rejes_Has³o` "	
+						"AND r.`Has³o` = d.`Rejes_Has³o` "
 						"AND r.`PESEL` = d.`Rejes_PESEL` "
 						"WHERE r.`PESEL` IS NOT NULL;";
 
@@ -524,11 +524,29 @@ namespace RejestracjaBankowa {
 					else {
 						transakcja->Rollback();
 						MessageBox::Show("Nie uda³o siê zweryfikowaæ danych w bazie !");
+						this->access->Image = this->accessDeniedImg;
+						if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+						this->access->Image = this->accessDeniedImg != nullptr
+							? this->accessDeniedImg : LoadImageFromObrazy("accessout.png");
+						this->access->Visible = true;
+						this->access->Refresh();
+						System::Threading::Thread::Sleep(4000);
+						Application::DoEvents();
+						return;
 					}
 				}
 				else {
 					transakcja->Rollback();
 					MessageBox::Show("Nie uda³o siê zweryfikowaæ danych w bazie !");
+					this->access->Image = this->accessDeniedImg;
+					if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
+					this->access->Image = this->accessDeniedImg != nullptr
+						? this->accessDeniedImg : LoadImageFromObrazy("accessout.png");
+					this->access->Visible = true;
+					this->access->Refresh();
+					System::Threading::Thread::Sleep(4000);
+					Application::DoEvents();
+					return;
 				}
 
 				process->Visible = true;
