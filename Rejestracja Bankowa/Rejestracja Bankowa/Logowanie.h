@@ -446,6 +446,8 @@ namespace RejestracjaBankowa {
 					this->process->Image = this->processingGif;
 					this->process->Image = this->processingGif != nullptr
 						? this->processingGif : LoadImageFromObrazy("Processing.gif");
+					this->process->Visible = true;
+					this->process->Refresh();
 					System::Threading::Thread::Sleep(4000);
 					Application::DoEvents();
 
@@ -558,6 +560,8 @@ namespace RejestracjaBankowa {
 				if (processFull != nullptr) {
 					this->process->Image = processFull; // ustaw obraz
 					System::Drawing::ImageAnimator::Animate(processFull, gcnew System::EventHandler(this, &Logowanie::OnProcessTimerTick));//tutaj ponownie animujemy,aby mieæ pewnoœæ,¿e animacja zacznie siê od pocz¹tku po zmianie obrazu
+					this->process->Visible = true;
+					this->process->Refresh();
 					System::Threading::Thread::Sleep(4000);
 					Application::DoEvents();
 				}
@@ -606,11 +610,16 @@ namespace RejestracjaBankowa {
 				if (this->access->Image != nullptr) { delete this->access->Image; }// Usuniêcie poprzedniego obrazu,jeœli istnieje
 				this->access->Image = this->accessGrantedImg != nullptr
 					? this->accessGrantedImg : LoadImageFromObrazy("accessgranted.png");
+				this->access->Visible = true;
+				this->access->Refresh();
 				System::Threading::Thread::Sleep(4000);
 				Application::DoEvents();
 			}
-			if (this->processTimer != nullptr && this->processTimer->Enabled) {
-				this->processTimer->Start();
+			if (this->processTimer != nullptr && this->processTimer->Enabled == true) {
+				if (this->processTimer->Enabled == false) {
+					this->processTimer->Enabled = true;
+					this->processTimer->Start();
+				}
 			}
 			CzyszczeniePól();
 			connection->Close();
