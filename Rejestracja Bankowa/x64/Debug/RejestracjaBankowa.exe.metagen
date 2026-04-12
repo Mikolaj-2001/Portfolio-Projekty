@@ -30,6 +30,7 @@ Class RejestracjaBankowa.Rejestracja: AutoLayout, AnsiClass, Class, Public, Befo
   Methods:
     LoadImageFromObrazy(String): PrivateScope, Public, HideBySig
     GeneratorIdTransakcji(): PrivateScope, Public, HideBySig
+    GeneratorIdDlaDuplikatu(): PrivateScope, Public, HideBySig
     GeneratorKoduIdDuplikatu(): PrivateScope, Public, HideBySig
     ŁadowanieBazy1(): PrivateScope, Public, HideBySig
     ŁadowanieBazy1a(): PrivateScope, Public, HideBySig
