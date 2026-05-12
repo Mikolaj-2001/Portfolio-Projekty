@@ -100,9 +100,20 @@ Class RejestracjaBankowa.Rejestracja+DownLoadingStructure`1[T]: AutoLayout, Ansi
   Fields:
     T dataInput2 : Public
   Methods:
-    dataDownLoading(Object): PrivateScope, Public, HideBySig
-    dataTabling2(DataGridView): PrivateScope, Public, HideBySig
+    invokeBase2(Rejestracja): PrivateScope, Public, HideBySig
+    invokeBase3(Rejestracja): PrivateScope, Public, HideBySig
+    escribeIfExistent(Rejestracja): PrivateScope, Public, HideBySig
+    escribeIfExistent2(Rejestracja): PrivateScope, Public, HideBySig
+    GetFolderPathOrDefault(Rejestracja): PrivateScope, Public, HideBySig
+    GetFolderPathOrDefault2(Rejestracja): PrivateScope, Public, HideBySig
+    ResolveFilePath(Object, Rejestracja): PrivateScope, Public, HideBySig
+    ResolveFilePath2(Object, Rejestracja): PrivateScope, Public, HideBySig
+    dataDownLoading(Object, Rejestracja): PrivateScope, Public, HideBySig
+    dataDownLoading2(Object, Rejestracja): PrivateScope, Public, HideBySig
+    dataTabling2(DataGridView, Rejestracja): PrivateScope, Public, HideBySig
+    dataTabling3(DataGridView, Rejestracja): PrivateScope, Public, HideBySig
     dataFoldering(String): PrivateScope, Public, HideBySig
+    dataFoldering2(String): PrivateScope, Public, HideBySig
 Class RejestracjaBankowa.Nawigacja: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
   Methods:
     otwórzGłównyFormularz(Form, Int64): PrivateScope, Public, Static, HideBySig
