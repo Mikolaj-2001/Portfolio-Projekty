@@ -67,7 +67,7 @@ export class ActionServiceService {
         updateActionDto: UpdateAction,
     ): Promise<Action> {
         const updateAction = await this.actionModel
-            .findByIdAndUpdate(actionId, updateActionDto, { new: true })
+            .findByIdAndUpdate(actionId, updateActionDto, { new: true })//new: true - zwraca zaktualizowany dokument zamiast oryginalnego przed aktualizacją
 
         if (!updateAction) {
             throw new NotFoundException(`Akcja o podanym identyfikatorm:${actionId} nie istnieje lub nie znaleziona`)

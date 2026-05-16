@@ -41,7 +41,7 @@
         {{!-- Lepsza metoda z przekazaniem id w adresie URL --}}
     </div>
 
-    <form action="/user/DataView" method="GET">
+    <form action="/user/DataView" method="GET">//Ten formularz jest używany do obsługi przycisku "Odblokuj widok" i wywołania funkcji JavaScript, która odblokowuje dostęp do danych użytkownika po wprowadzeniu poprawnego klucza weryfikacyjnego.
         <div class="text-center" id="protected-link" style="filter: blur(10px); transition: filter 0.5s ease;">
             <h1 style="font-style: italic;">Link Przekierowujący</h1>
             <code id="connecting-string" onclick="mongoDBCompassDataProtectionFilter()">
@@ -77,8 +77,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     {{!-- defer służy do opóźnienia wykonania skryptu do momentu, gdy strona zostanie w pełni załadowana --}}
     <script>
-        window.onload = function () {
-            document.getElementById('qrcode').innerHTML = '';
+        window.onload = function () {//Ta funkcja jest wywoływana, gdy strona zostanie w pełni załadowana. Ustawia początkowy stan elementów na stronie, takich jak ukrycie kodu QR i timera, oraz resetuje zawartość div'a z kodem QR.
+            document.getElementById('qrcode').innerHTML = '';//Resetuje zawartość div'a z kodem QR, aby upewnić się, że jest pusty przy każdym załadowaniu strony.
         };//ten kod resetuje zawartość div'a z kodem QR
 
         function mongoDBCompassDataProtectionFilter() {
@@ -88,11 +88,11 @@
         }
 
         function AttemptsCount() {
-            const userId = "{{user.encryptedId}}";
+            const userId = "{{user.encryptedId}}";//Używa zaszyfrowanego ID użytkownika jako klucza do przechowywania i pobierania liczby prób oraz czasu ostatniej próby z localStorage, co pozwala na indywidualne śledzenie prób dla każdego użytkownika.
             const storageKey = `attempts_${userId}`;
             const timeKey = `lastAttempt_${userId}`;
 
-            const savedAttempts = localStorage.getItem(storageKey);
+            const savedAttempts = localStorage.getItem(storageKey);//Pobiera z localStorage liczbę pozostałych prób dla danego użytkownika, jeśli istnieje.
             const lastAttempt = localStorage.getItem(timeKey);
             const now = new Date().getTime();
 
@@ -105,7 +105,8 @@
                     return 2;
                 }
             }
-            return savedAttempts ? parseInt(savedAttempts) : 2;
+            // Jeśli istnieje zapisane liczba prób, zwróć ją, w przeciwnym razie ustaw domyślną wartość 2 i zwróć ją.
+            return savedAttempts ? parseInt(savedAttempts) : 2;//Domyślnie 2 próby, ponieważ pierwsza próba jest wykonywana bezpośrednio po załadowaniu strony, a użytkownik ma jeszcze 2 próby do wykorzystania.
         }
 
         let attempts = AttemptsCount();
@@ -122,7 +123,7 @@
             }
 
             const qrString = "__рэтэзІугъэбзнкІыэр";
-            const URL = `https://www.google.com/search?q=${encodeURIComponent(qrString)}`;
+            const URL = `https://www.google.com/search?q=${encodeURIComponent(qrString)}`;//Generuje URL do wyszukiwarki Google z zakodowanym ciągiem znaków, który będzie używany do generowania kodu QR. Użytkownik będzie musiał zeskanować ten kod QR, aby uzyskać dostęp do klucza weryfikacyjnego potrzebnego do odszyfrowania danych.
 
             // Zawsze czyść div przed generacją
             const qrDiv = document.getElementById("qrcode");
@@ -141,7 +142,7 @@
                 alert('Nie wprowadzono klucza weryfikacyjnego');
                 return;
             }
-            const VerifyingComponent = userInput;
+            const VerifyingComponent = userInput;//Pobiera klucz weryfikacyjny od użytkownika za pomocą promptu. Ten klucz będzie porównywany z predefiniowanym kluczem weryfikacyjnym, aby sprawdzić, czy użytkownik ma autoryzację do odszyfrowania danych.
 
             const resolvingKey = "ІункІыбзэр_гъэтэрэз";
 
@@ -157,7 +158,7 @@
                 const userId = "{{user.encryptedId}}";
                 const attemptsForUsage = `attempts_${userId}`;
                 const timeFrame = `lastAttempt_${userId}`;
-                localStorage.setItem(attemptsForUsage, attempts.toString());
+                localStorage.setItem(attemptsForUsage, attempts.toString());//Zapisz aktualną liczbę prób w localStorage, aby śledzić, ile prób pozostało dla danego użytkownika.
                 localStorage.setItem(timeFrame, new Date().getTime().toString());
                 return;
             } else {
@@ -183,7 +184,7 @@
                  </div>
                 `}
 
-            attempts--;
+            attempts--;//Zmniejsz liczbę prób po każdej próbie odszyfrowania, niezależnie od wyniku, aby zapewnić, że użytkownik ma ograniczoną liczbę prób do wykorzystania.
             document.getElementById('attempts-display').textContent = attempts;
 
             const userId = "{{user.encryptedId}}";
@@ -201,15 +202,15 @@
                 document.getElementById('timing-inference').textContent = `Dane będą widoczne przez ${timing} sekund.`;
                 if (timing <= 0) {
                     clearInterval(timer);
-                    document.getElementById('timing-inference').style.display = 'none';
+                    document.getElementById('timing-inference').style.display = 'none';//Ukryj timer
                     document.getElementById('qrcode').style.display = 'none';
                     const infoBlock = newInnerHTML.querySelector('.user-info2');
                     if (infoBlock) {
-                        infoBlock.remove();
+                        infoBlock.remove();//Usuń blok informacji o użytkowniku
                     }
                     alert('Dostęp do danych wygasł.');
                 }
-            }, 1000);
+            }, 1000);//1000 oznacza, że timer będzie aktualizowany co sekundę, a dane będą widoczne przez 30 sekund po poprawnym wprowadzeniu klucza weryfikacyjnego.
         }
 
         function unlockProtectedLink() {
@@ -223,7 +224,7 @@
 
             const normalize = str => str ? str.normalize('NFC').replace(/\s+/g, '').trim() : '';
             const inputNormalized = normalize(VerifyingComponent2);
-            const keyNormalized = normalize(resolvingKey2);
+            const keyNormalized = normalize(resolvingKey2);//normalizacja w celu uniknięcia problemów z formatowaniem lub niezamierzonymi znakami
 
             if (inputNormalized === keyNormalized) {
                 document.getElementById('protected-link').style.filter = 'none';

@@ -3,12 +3,12 @@ import { IsString, IsEmail, IsStrongPassword, IsNotEmpty } from "class-validator
 export class UserNewLogin {
     @IsNotEmpty()
     @IsString()
-    userName: string
+    userName!: string
 
     @IsNotEmpty()
     @IsString()
     @IsEmail()
-    email: string
+    email!: string
 
     @IsNotEmpty()
     @IsString()
@@ -18,5 +18,5 @@ export class UserNewLogin {
         minLowercase: 2,
         minUppercase: 1,
     })
-    password: string
+    password!: string
 }

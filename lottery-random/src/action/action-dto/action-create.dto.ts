@@ -3,14 +3,14 @@ import { Types } from "mongoose"
 
 export class CreateAction {
     @IsMongoId()
-    readonly userID: Types.ObjectId
+    readonly userID!: Types.ObjectId
 
     @IsNotEmpty()
     @IsNumber()
-    option: number
+    readonly option!: number
 
     @IsNotEmpty()
     @IsString()
-    description: string
+    readonly description!: string
 
 }

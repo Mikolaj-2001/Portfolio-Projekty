@@ -11,10 +11,10 @@ import { UserServiceService } from '../../user-service/user-service.service';
 
 @Injectable()
 export class UserAuthServiceService {
-    [x: string]: any;
+    [x: string]: any;//Indeks sygnatury indeksowanej, który pozwala na dostęp do właściwości i metod klasy za pomocą notacji tablicowej, czyli np. this['nazwaMetody']() zamiast this.nazwaMetody(). Jest to przydatne w sytuacjach, gdy nazwa metody lub właściwości jest dynamiczna lub nieznana w czasie pisania kodu.
     constructor(
         private readonly jwtService: JwtService,
-        @InjectModel(User.name) private userModel: Model<User>,
+        @InjectModel(User.name) private userModel: Model<User>,//wstrzykujemy model użytkownika, aby móc wykonywać operacje na kolekcji użytkowników w bazie danych MongoDB za pomocą Mongoose. Dzięki temu możemy tworzyć, odczytywać, aktualizować i usuwać dokumenty użytkowników w naszej aplikacji.
         private configService: ConfigService,
         private readonly fileConfiguring: FileConfiguring,
         private readonly userService: UserServiceService,
@@ -59,7 +59,7 @@ export class UserAuthServiceService {
             expiresIn: this.configService.get<string>('JWT_TOKEN_EXPIRES_IN') || '1h'
         });
 
-        res.cookie('jwt', token, {
+        res.cookie('jwt', token, {//jwt oznacza JSON Web Token,który jest standardem otwartym (RFC 7519) definiującym sposób bezpiecznego przekazywania informacji między stronami jako obiekt JSON. W tym przypadku jest używany do uwierzytelniania użytkownika po zalogowaniu.
             httpOnly: true,/* Ustawianie cookies jako niedostępnych z poziomu JavaScript,czyli nie można ich odczytać ani zmodyfikować z poziomu klienta */
             sameSite: 'strict',/* Wysyłanie cookies z żądaniem do domen o tym samym adresie  */
             secure: process.env.Node_ENV === 'production',/* ustawienie przesyłania tylko przez żądanie HTTPS i ustawienie,aby działa w trybie produkcyjnym na serwerze HTTPS */

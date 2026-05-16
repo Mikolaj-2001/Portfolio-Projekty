@@ -7,20 +7,20 @@ export class Action extends Document {
 
     @Prop({ required: true })
     @IsMongoId()
-    userID: Types.ObjectId
+    userID!: Types.ObjectId
 
     @Prop({ required: true })
     @IsNotEmpty()
     @IsNumber()
-    option: Number
+    option!: Number
 
     @Prop({ required: true })
     @IsNotEmpty()
     @IsString()
-    description: string
+    description!: string
 
     @Prop({ type: Types.ObjectId, ref: "User" })
-    userId: Types.ObjectId
+    userId!: Types.ObjectId/* userId! oznacza, że pole jest wymagane */
 }
 
 export const ActionSchema = SchemaFactory.createForClass(Action)

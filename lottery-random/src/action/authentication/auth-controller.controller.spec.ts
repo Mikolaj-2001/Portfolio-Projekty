@@ -1,3 +1,4 @@
+/// <reference types="jest" /> 
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthControllerController } from './auth-controller.controller';
 

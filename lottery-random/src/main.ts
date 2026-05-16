@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as hbs from 'hbs';
 import rateLimit from 'express-rate-limit';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   console.log('Uruchamianie programu...')
@@ -39,20 +39,20 @@ async function bootstrap() {
 
   // Obsługa metody switch case w widoku Handlebars
   // Umożliwia użycie switch case w szablonach Handlebars
-  hbs.registerHelper('switch', function (value, options) {
+  hbs.registerHelper('switch', function (this: any, value: any, options: any) {
     this.switch_value = value;
     this.switch_break = false;
     return options.fn(this);/* Oznacza funkcję zawierającą kod HTML */
   });
 
-  hbs.registerHelper('case', function (value, options) {
+  hbs.registerHelper('case', function (this: any, value: any, options: any) {
     if (value == this.switch_value) {
       this.switch_break = true;
       return options.fn(this);
     }
   });
 
-  hbs.registerHelper('default', function (options) {
+  hbs.registerHelper('default', function (this: any, options: any) {
     if (this.switch_break == false) {
       return options.fn(this);
     }

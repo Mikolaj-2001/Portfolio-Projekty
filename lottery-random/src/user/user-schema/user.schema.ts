@@ -8,21 +8,21 @@ export class User extends Document {
   @Prop({ required: true, unique: true })
   @IsNotEmpty()
   @IsString()
-  userName: string
+  userName!: string
 
   @Prop({ required: true, unique: true })
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  email: string
+  email!: string
 
   @Prop({ required: true, unique: true })
   @IsNotEmpty()
   @IsString()
-  password: string
+  password!: string
 
   @Prop()
-  encryptionKey: string /* Klucz szyfrujący dane wprowadzane przez użytkownika */
+  encryptionKey?: string /* Klucz szyfrujący dane wprowadzane przez użytkownika */
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

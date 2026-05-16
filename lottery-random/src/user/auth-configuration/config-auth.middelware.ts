@@ -9,7 +9,7 @@ export class AuthMiddelware implements NestMiddleware {
     async use(req: Request, _res: Response, next: NextFunction) {
         console.log('🔍 AuthMiddleware - Sprawdzanie trasy', req.method, req.path);
         
-        const token = req.cookies?.jwt;
+        const token = req.cookies?.jwt;//Pobierz token z ciasteczek
 
         if (!token) {
             console.log('❌ Brak tokenu dla trasy:', req.path);

@@ -35,7 +35,7 @@ export class ActionController {
     @Render('pageView/lotteryNumbers')
     async updateActionByGet(@Param('id') id: string) {
         // Aktualizuj akcję z nową losową opcją
-        const updatedAction = await this.actionService.update(id, { option: Math.floor(Math.random() * 4) + 1 });
+        const updatedAction = await this.actionService.update(id, { option: Math.floor(Math.random() * 4) + 1 });// Losuje liczbę od 1 do 4 w celu aktualizacji opcji w akcji
 
         // Pobierz dane użytkownika
         const user = await this.userService.findById(updatedAction.userID.toString());

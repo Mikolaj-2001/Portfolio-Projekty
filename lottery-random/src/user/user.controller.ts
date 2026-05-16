@@ -10,10 +10,14 @@ import { FileConfiguring } from 'src/user-service/user-fileCreation.service';
 import * as fs from 'fs';
 import * as path from 'path';
 
+interface AuthenticatedRequest extends Request {// Rozszerzenie interfejsu Request o właściwość user, która będzie przechowywać dane uwierzytelnionego użytkownika
+    user?: any;
+}
+
 @Controller('user')
 export class UserController {
     constructor(private readonly loginAuthService: LoginAuthService,
-        private readonly Authentication: UserAuthServiceService,
+        private readonly Authentication: UserAuthServiceService,//readonly, ponieważ nie planujemy przypisywać nowej instancji tej usługi do tej właściwości, a jedynie korzystać z jej metod do obsługi logiki uwierzytelniania i rejestracji użytkowników.
         private readonly fileConfiguring: FileConfiguring
     ) { }
 
@@ -28,8 +32,9 @@ export class UserController {
                 throw new UnauthorizedException('Rejestracja nie powiodła się')
             }
         } catch (error) {
-            console.log('❌ Błąd podczas rejestracji:', error.message);
-            throw new UnauthorizedException('Błąd podczas procesu rejestracji użytkownika: ' + error.message)
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.log('❌ Błąd podczas rejestracji:', errorMessage);
+            throw new UnauthorizedException('Błąd podczas procesu rejestracji użytkownika: ' + errorMessage)
         }
     }
 
@@ -89,7 +94,8 @@ export class UserController {
                 option: 0
             });
         } catch (error) {
-            console.log('❌ Błąd podczas logowania:', error.message);
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.log('❌ Błąd podczas logowania:', errorMessage);
             throw error;
         }
     }
@@ -97,7 +103,7 @@ export class UserController {
     @Get('lottery')
     @UseGuards(AuthMiddelware)
     @Render('pageView/lotteryNumbers')
-    async showLottery(@Req() req: Request) {
+    async showLottery(@Req() req: AuthenticatedRequest) {
         const authenticatedUser = req.user as any;
         if (!authenticatedUser) {
             throw new UnauthorizedException('Użytkownik nie został uwierzytelniony');
@@ -127,7 +133,7 @@ export class UserController {
     @Get('DataView')
     @UseGuards(AuthMiddelware)
     @Render('pageView/DataView')
-    async ShowDataView(@Req() req: Request) {
+    async ShowDataView(@Req() req: AuthenticatedRequest) {
         const authenticatedUser = req.user as any;
         if (!authenticatedUser) {
             throw new UnauthorizedException('Użytkownik nie został uwierzytelniony');
@@ -148,7 +154,7 @@ export class UserController {
     @Post('DataView')
     @UseGuards(AuthMiddelware)
     @Render('pageView/DataView')
-    async ProcessDataLinkView(@Req() req: Request) {
+    async ProcessDataLinkView(@Req() req: AuthenticatedRequest) {
         const authenticatedUser = req.user as any;
 
         if (!authenticatedUser) {
@@ -176,14 +182,15 @@ export class UserController {
             });
             return res.redirect('/user/login');
         } catch (error) {
-            console.log('❌ Błąd podczas wylogowania:', error.message)
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.log('❌ Błąd podczas wylogowania:', errorMessage); 
             throw error;
         }
     }
 
     @Post('delete')
     @UseGuards(AuthMiddelware)
-    async deleteUser(@Req() req: Request, @Res() res: Response) {
+    async deleteUser(@Req() req: AuthenticatedRequest, @Res() res: Response) {
         const authenticatedUser = req.user as any;
 
         if (!authenticatedUser) {
@@ -198,7 +205,7 @@ export class UserController {
         return res.redirect('/user/register');
     }
 
-    @Post('face-recognition')
+    /* @Post('face-recognition')
     async faceStoring(@Body() body: { image: string }) {
         const folderPath = 'c:/Users/kazac/OneDrive/Pulpit/Loteria/lottery-random/src/biometricSecurity/faceRecognition';
         const filePath = path.join(folderPath, 'faceScan.png');
@@ -214,6 +221,6 @@ export class UserController {
         fs.writeFileSync(filePath, imageBuffer);// Zapisz bufor jako plik obrazu na dysku,aby próściej mówiąc zapisać obraz
 
         return { success: true, message: 'Obraz został zapisany pomyślnie' };
-    }
+    } */
 }
 

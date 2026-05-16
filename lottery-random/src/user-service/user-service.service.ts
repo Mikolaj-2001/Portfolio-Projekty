@@ -12,14 +12,14 @@ export class UserServiceService {
     ) { }
     private users: any[] = [];
 
-    async create(createUserDto: { userName: string, email: string; password: string }, asignActionDto: { option: number, description: string }) {
+    async create(createUserDto: { userName: string, email: string; password: string }, asignActionDto: { option: number, description: string }) {// Tworzymy nową akcję na podstawie przekazanych danych
         const createdAction = new this.actionModel(asignActionDto)
         const savedAction = await createdAction.save();
-        const userFinalModel = { ...createUserDto, action: savedAction._id }
+        const userFinalModel = { ...createUserDto, action: savedAction._id }//... - operator rozproszenia, który pozwala na rozłożenie właściwości obiektu createUserDto do nowego obiektu userFinalModel, a następnie dodanie do niego właściwości action z wartością savedAction._id
         const createdUser = new this.userModel(userFinalModel);
         const savedUser = await createdUser.save();
         const newJsonFormat = savedUser.toJSON();
-        this.users.push(newJsonFormat);
+        this.users.push(newJsonFormat);// Dodajemy nowo utworzonego użytkownika do lokalnej tablicy users
         return newJsonFormat
     }
 
