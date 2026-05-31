@@ -17,7 +17,7 @@ export class ActionServiceService {
     ): Promise<Action> {
         const options: number[] = [1, 2, 3, 4, 5, 6];
 
-        createAction.option = options[Math.floor(Math.random() * options.length)];
+        const selectedOption = options[Math.floor(Math.random() * options.length)];
 
         const map: Record<number, string> = {
             1: "Opis 1",
@@ -28,7 +28,8 @@ export class ActionServiceService {
             6: "Opis 6",
         }
 
-        createAction.description = map[createAction.option] ?? 'Brak wymaganego opisu'
+        const description = map[selectedOption] ?? 'Brak wymaganego opisu';//?? operator nullish coalescing, który zwraca wartość po lewej stronie, jeśli nie jest null lub undefined, w przeciwnym razie zwraca wartość po prawej stronie. W tym przypadku, jeśli map[selectedOption] jest null lub undefined, zostanie użyty domyślny opis 'Brak wymaganego opisu'.
+        createAction = { ...createAction, option: selectedOption, description };// tworzy nowy obiekt createAction, który zawiera wszystkie właściwości z oryginalnego createAction oraz dodatkowe właściwości option i description.
 
         const newAction = new this.actionModel(createAction)
 

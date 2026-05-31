@@ -12,9 +12,9 @@ export class FileConfiguring {
 
     private async ensuringFolderExistence(): Promise<void> {
         try {
-            await fs.access(this.folderPath, constants.F_OK/* Sprawdzanie czy plik/folder istnieje */)
+            await fs.access(this.folderPath, constants.F_OK/* Sprawdzanie czy plik/folder istnieje */)/* constants.F_OK sprawdza, czy plik/folder istnieje */
         } catch {
-            await fs.mkdir(this.folderPath, { recursive: true }/* Utworzy ten folder,jeżeli nie jest obecny*/)
+            await fs.mkdir(this.folderPath, { recursive: true }/* Utworzy ten folder,jeżeli nie jest obecny*/)/* recursive jest potrzebne, aby utworzyć wszystkie brakujące foldery w ścieżce */
         }
     }
 

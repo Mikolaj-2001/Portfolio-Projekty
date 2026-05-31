@@ -23,4 +23,4 @@ export class Action extends Document {
     userId!: Types.ObjectId/* userId! oznacza, że pole jest wymagane */
 }
 
-export const ActionSchema = SchemaFactory.createForClass(Action)
+export const ActionSchema = SchemaFactory.createForClass(Action)// tworzy schemat Mongoose na podstawie klasy Action, który będzie używany do definiowania struktury dokumentów w kolekcji MongoDB.

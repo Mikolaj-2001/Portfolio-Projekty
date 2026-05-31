@@ -14,9 +14,9 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
+  describe('root', () => {//describe to jest grupa testów, można mieć kilka describe w jednym pliku.Służy do organizowania testów w logiczne grupy.
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      expect(appController.getHello()).toBe('Hello World!');//tutaj można zmienić na to co jest w app.service.ts w getWelcomeMessage()
     });
   });
 });

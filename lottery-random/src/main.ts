@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as hbs from 'hbs';
 import rateLimit from 'express-rate-limit';
-import cookieParser from 'cookie-parser';
+import cookieParser = require('cookie-parser');
 
 async function bootstrap() {
   console.log('Uruchamianie programu...')

@@ -10,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
     UserModuleModule, 
     ActionModuleModule, 
     MongooseModule.forRoot('mongodb://localhost:27017/lottery-random'),
-    ConfigModule.forRoot({isGlobal:true})
+    ConfigModule.forRoot({isGlobal:true})// Dodaj konfigurację globalną,czyli dostęp do zmiennych środowiskowych w całej aplikacji
   ],
   controllers: [AppController], // Tylko główny kontroler
   providers: [], 
