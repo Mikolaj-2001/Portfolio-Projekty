@@ -7,14 +7,17 @@
             <button class="btn btn-outline-success me-2" type="submit" style="font-style: italic;">Wyloguj się</button>
         </form>
         <form action="/user/register" method="get">
-            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic;">Zarejestruj się</button>
+            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic;">Zarejestruj
+                się</button>
         </form>
         <form action="/user/delete" method="post"
             onsubmit="return confirm('Czy na pewno chcesz usunąć swoje konto? Ta operacja jest nieodwracalna!');">
-            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic; color: red;">Usuń konto</button>
+            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic; color: red;">Usuń
+                konto</button>
         </form>
         <form action="/user/DataView" method="get">
-            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic;">Baza Danych</button>
+            <button class="btn btn-sm btn-outline-secondary" type="submit" style="font-style: italic;">Baza
+                Danych</button>
         </form>
     </div>
 </nav>
@@ -104,7 +107,7 @@
         </form>
 
         {{#if action._id}}
-        <form action="/user/action/update/{{action._id}}" method="get">
+        <form action="/user/action/update/{{action._id}}" method="POST">
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button style="font-style: italic; background-color: #0b3ed7; border: 1px solid #ccc;"
                     class="btn btn-secondary">
@@ -113,7 +116,7 @@
             </div>
         </form>
 
-        <form action="/user/action/delete/{{action._id}}" method="get">
+        <form action="/user/action/delete/{{action._id}}" method="POST">
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button style="font-style: italic; background-color: #0b3ed7; border: 1px solid #ccc;"
                     class="btn btn-secondary">
@@ -133,23 +136,4 @@
     const userId = '{{user._id}}';
 </script>
 
-<script>
-    function start() {
-        document.getElementById('starting-form').style.display = 'none';
-        // Pokazuje przyciski z numerami
-        document.getElementById('switching-numbers').style.display = 'block';
-        // Dodawanie klasy CSS do elementu HTML
-        document.querySelectorAll('.number').forEach(number => {
-            number.classList.add('spin');
-        });
-        // Usuwanie klasy CSS po 2 sekundach
-        setTimeout(() => document.querySelectorAll('.number').forEach(number => number.classList.remove('spin')), 2000);
-    }
-
-    function pick(number) {
-        // Przypisuje zdarzenie kliknięcia do elementu HTML
-        event.target.classList.add('picked');
-        // Ustawienie timeoutu na 0.5 sekundy i przekierowanie do akcji loterii
-        setTimeout(() => window.location.href = `/user/action/lottery/${userId}?option=${number}`, 500);
-    }
-</script>
+<script src="/lotteryNumbers.js" defer></script>

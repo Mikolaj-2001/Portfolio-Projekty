@@ -1,8 +1,17 @@
-import { Controller, Post, Body, Param, Get, Render, Query } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get, Render, Query, UseGuards, Req } from '@nestjs/common';
+import { AuthMiddelware } from '../user/auth-configuration/config-auth.middelware';
 import { ActionServiceService } from 'src/action-service/action-service.service';
 import { CreateAction } from './action-dto/action-create.dto';
-import { UserServiceService } from 'src/user-service/user-service.service'; // Importuj UserServiceService
+import { UpdateAction } from './action-dto/action-update.dto';
+import { UserServiceService } from 'src/user-service/user-service.service';
 import { Types } from 'mongoose';
+import { IsMongoId } from 'class-validator';
+
+// DTO for delete action
+class DeleteActionDto {
+    @IsMongoId()
+    readonly id!: string;
+}
 
 @Controller('user/action')
 export class ActionController {
@@ -21,7 +30,15 @@ export class ActionController {
             description: ""
         };
         const action = await this.actionService.create(createActionDto);
-        return {/* Tutaj zwracam obiket z polami danych po utorzeniu nowej akcji */
+        // Pobierz dane użytkownika
+        const user = await this.userService.findById(userID.toString());
+        return {
+            user: user ? {
+                _id: user._id,
+                userName: user.userName,
+                email: user.email,
+                password: "***"
+            } : undefined,
             action: {
                 _id: action._id,
                 option: action.option,
@@ -31,61 +48,61 @@ export class ActionController {
         };
     }
 
-    @Get('update/:id')
+    @Post('update/:id')
+    @UseGuards(AuthMiddelware)
     @Render('pageView/lotteryNumbers')
-    async updateActionByGet(@Param('id') id: string) {
-        // Aktualizuj akcję z nową losową opcją
-        const updatedAction = await this.actionService.update(id, { option: Math.floor(Math.random() * 4) + 1 });// Losuje liczbę od 1 do 4 w celu aktualizacji opcji w akcji
-
-        // Pobierz dane użytkownika
-        const user = await this.userService.findById(updatedAction.userID.toString());
-
-        // Zwróć zaktualizowane dane do widoku
+    async updateAction(@Param('id') id: string, @Body() updateActionDto: UpdateAction, @Req() req) {
+        if (!id) {
+            return { message: 'Brak wymaganych danych do aktualizacji.' };
+        }
+        const updatedAction = await this.actionService.update(id, updateActionDto);
+        if (!updatedAction) {
+            return { message: 'Nie znaleziono akcji do aktualizacji.' };
+        }
+        // Użyj user z req ustawionego przez middleware
+        const user = req.user || (updatedAction.userID && await this.userService.findById(updatedAction.userID.toString()));
         return {
-            user: {
-                _id: updatedAction.userID,
-                id: updatedAction.userID, // Dodaj też 'id' dla kompatybilności
-                userName: user?.userName,
-                email: user?.email,
+            user: user ? {
+                _id: user._id,
+                userName: user.userName,
+                email: user.email,
                 password: "***"
-            },
+            } : undefined,
             action: {
                 _id: updatedAction._id,
                 option: updatedAction.option,
                 description: updatedAction.description
             },
             option: updatedAction.option,
+            message: 'Akcja została zaktualizowana.'
         };
     }
 
-    @Get('delete/:id')
+    @Post('delete/:id')
+    @UseGuards(AuthMiddelware)
     @Render('pageView/lotteryNumbers')
-    async deleteActionByGet(@Param('id') id: string) {
-        // Znajdź akcję przed usunięciem żeby pobrać userId
+    async deleteAction(@Param('id') id: string, @Body() deleteActionDto: DeleteActionDto, @Req() req) {
+        if (!id || !deleteActionDto.id || id !== deleteActionDto.id) {
+            return { message: 'Brak ID akcji do usunięcia lub ID niezgodne.' };
+        }
         const actionToDelete = await this.actionService.findOne(id);
-        const userId = actionToDelete.userID;
-
-        // Usuń akcję
+        if (!actionToDelete) {
+            return { message: 'Nie znaleziono akcji do usunięcia.' };
+        }
+        const user = req.user || (actionToDelete.userID && await this.userService.findById(actionToDelete.userID.toString()));
         await this.actionService.remove(id);
-
-        // Pobierz dane użytkownika
-        const user = await this.userService.findById(userId.toString());/* Konwertujemy na string ze względu na to,że id jest typu ObjectId */
-
-        // Zwróć widok bez wylosowanej opcji
         return {
-            user: {
-                _id: userId,
-                id: userId, // Dodaj też 'id' dla kompatybilności
-                userName: user?.userName,
-                email: user?.email,
+            user: user ? {
+                _id: user._id,
+                userName: user.userName,
+                email: user.email,
                 password: "***"
-            },
-            // Brak action i option - widok będzie pusty
-            message: "Akcja została usunięta.Wybierz 'Uruchom Loterię' żeby wylosować nową opcję."
+            } : undefined,
+            message: "Akcja została usunięta. Wybierz 'Uruchom Loterię' żeby wylosować nową opcję."
         };
     }
 
-    @Post()
+    @Post('create')
     async createAction(@Body() createActionDto: CreateAction) {
         return await this.actionService.create(createActionDto)
     }

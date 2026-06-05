@@ -62,7 +62,7 @@ export class UserController {
 
     @Post('login')
     async login(
-        @Body() loginDto: UserRegistered,
+        @Body() loginDto: UserRegistered,//tutaj używamy UserRegistered, ponieważ zawiera on wszystkie potrzebne dane do procesu logowania, takie jak email, password oraz opcja, która może być wykorzystana do dodatkowej logiki podczas logowania. UserNewLogin jest bardziej odpowiedni dla procesu rejestracji, gdzie potrzebujemy danych takich jak userName i email do tworzenia nowego użytkownika.
         @Res() res: Response,
     ) {
         try {

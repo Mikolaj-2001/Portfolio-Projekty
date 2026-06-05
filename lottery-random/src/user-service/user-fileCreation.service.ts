@@ -50,23 +50,14 @@ export class FileConfiguring {
         const detectingFilePath = await fs.readFile(this.filePath, 'utf-8')
         const usersArray = JSON.parse(detectingFilePath)
 
-        // Zabezpieczenie przed duplikatami 
-        //Metoda some sprawdza,czy jakikolwiek element w tablicy jest powtórzony
-        const userExists = usersArray.some((existingUser: any) =>
-            existingUser.email === createUserDto.email ||
-            existingUser.userName === createUserDto.userName ||
-            existingUser.action.userID === asignActionDto.userID
+        // Usuń stare wpisy tego użytkownika (po emailu, userName lub userID)
+        const filteredUsers = usersArray.filter((existingUser: any) =>
+            existingUser.email !== createUserDto.email &&
+            existingUser.userName !== createUserDto.userName &&
+            existingUser.action.userID !== asignActionDto.userID
         );
-
-        if (userExists) {
-            console.log('⚠️ Użytkownik już istnieje w spisie użytkowników. Plik nie może zostać z tego względu zmodyfikowany');
-            return this.filePath;
-        }
-
-        usersArray.push(userIndicationFile)
-
-        await fs.writeFile(this.filePath, JSON.stringify(usersArray, null, 2), 'utf-8');
-
+        filteredUsers.push(userIndicationFile);
+        await fs.writeFile(this.filePath, JSON.stringify(filteredUsers, null, 2), 'utf-8');
         return this.filePath;
     }
 

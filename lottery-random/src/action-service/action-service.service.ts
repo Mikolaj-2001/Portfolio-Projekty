@@ -27,7 +27,7 @@ export class ActionServiceService {
             5: "Opis 5",
             6: "Opis 6",
         }
-
+        //map[] z nawiasami kwadratowymi pozwala na dynamiczne przypisywanie wartości do kluczy, w tym przypadku do opcji. Jeśli wybrana opcja nie ma przypisanego opisu w mapie, zostanie użyty domyślny opis 'Brak wymaganego opisu'.
         const description = map[selectedOption] ?? 'Brak wymaganego opisu';//?? operator nullish coalescing, który zwraca wartość po lewej stronie, jeśli nie jest null lub undefined, w przeciwnym razie zwraca wartość po prawej stronie. W tym przypadku, jeśli map[selectedOption] jest null lub undefined, zostanie użyty domyślny opis 'Brak wymaganego opisu'.
         createAction = { ...createAction, option: selectedOption, description };// tworzy nowy obiekt createAction, który zawiera wszystkie właściwości z oryginalnego createAction oraz dodatkowe właściwości option i description.
 

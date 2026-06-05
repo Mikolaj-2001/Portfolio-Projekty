@@ -31,11 +31,8 @@ async function bootstrap() {
   console.log('📁 Static assets path:', join(__dirname, '..', 'public'));
 
   // Konfiguracja partials
-  const partialsPath = join(__dirname, '..', 'src', 'views', 'partials');
-  const personalitiesPath = join(__dirname, '..', 'src', 'views', 'Personalities');
-
-  hbs.registerPartials(partialsPath);
-  hbs.registerPartials(personalitiesPath);
+  hbs.registerPartials((join(__dirname, '..', 'src', 'views', 'partials')));
+  hbs.registerPartials((join(__dirname, '..', 'src', 'views', 'Personalities')));
 
   // Obsługa metody switch case w widoku Handlebars
   // Umożliwia użycie switch case w szablonach Handlebars

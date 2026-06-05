@@ -111,7 +111,7 @@ export class UserAuthServiceService {
     }
 
     async register(userData: UserNewLogin): Promise<User | null | any> {
-        const { email, userName, password } = userData
+        const { email, userName, password } = userData//Destrukturyzacja obiektu userData, aby uzyskać bezpośredni dostęp do właściwości email, userName i password. Dzięki temu możemy łatwiej korzystać z tych wartości w dalszej części kodu, zamiast odwoływać się do nich przez userData.email, userData.userName i userData.password.
 
         let existenceOfUser = await this.userModel.findOne({
             $or: [/* „Zwróć dokumenty, które spełniają przynajmniej jeden z poniższych warunków.” */
@@ -171,6 +171,8 @@ export class UserAuthServiceService {
     async deleteUser(email: string, userID: string): Promise<any> {
         try {
             await this.userModel.deleteOne({ email, _id: userID });
+            // Usuń użytkownika także z pliku userIndication.json
+            await this.fileConfiguring.deleteFile(email, userID);
             return { message: "Użytkownik został usunięty" };
         } catch (error) {
             throw new UnauthorizedException('Błąd podczas usuwania użytkownika');
