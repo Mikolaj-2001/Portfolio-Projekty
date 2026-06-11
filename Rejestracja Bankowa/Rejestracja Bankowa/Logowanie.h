@@ -572,7 +572,7 @@ namespace RejestracjaBankowa {
 				try {
 					this->accessGrantedFlag = true;
 					this->access->Image = this->accessGrantedImg;
-					this->access->Image = this->accessGrantedImg != nullptr
+					this->access->Image = this->accessGrantedImg != nullptr//tutaj ustawiamy obraz dostêpu przyznanego,jeœli jest dostêpny,jeœli nie to ³adujemy domyœlny obraz z katalogu Obrazy
 						? this->accessGrantedImg : LoadImageFromObrazy("accessgranted.png");
 
 					if (this->accessGrantedFlag) {
